@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — KindCycle</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { background: #f3f6fa; font-family: 'Inter', sans-serif; display: flex; height: 100vh; overflow: hidden; margin: 0; }
+    
+    /* Sidebar */
+    .admin-sidebar { width: 260px; background: #0B1437; color: #a0aec0; display: flex; flex-direction: column; overflow-y: auto; flex-shrink: 0; }
+    .admin-logo { padding: 24px; font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.5rem; font-weight: 800; color: white; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .admin-nav { flex: 1; padding: 20px 0; }
+    .nav-item { padding: 14px 24px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: all 0.2s; font-size: .95rem; font-weight: 500; border-left: 3px solid transparent; }
+    .nav-item:hover { background: rgba(255,255,255,0.05); color: white; }
+    .nav-item.active { background: linear-gradient(90deg, rgba(79,70,229,0.2) 0%, transparent 100%); color: white; border-left-color: #4F46E5; font-weight: 600; }
+    
+    /* Main Content */
+    .admin-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .admin-header { height: 70px; background: white; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; flex-shrink: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+    .header-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.3rem; font-weight: 700; color: #1a202c; }
+    .header-actions { display: flex; align-items: center; gap: 20px; }
+    
+    /* Content Area */
+    .admin-content { flex: 1; overflow-y: auto; padding: 32px; }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    
+    /* KPI Cards */
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 32px; }
+    .kpi-card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); border: 1px solid #f1f5f9; display: flex; align-items: center; gap: 20px; }
+    .kpi-icon { width: 56px; height: 56px; border-radius: 14px; background: #e0e7ff; color: #4F46E5; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; }
+    .kpi-val { font-size: 1.8rem; font-weight: 800; color: #1a202c; line-height: 1.2; font-family: 'Bricolage Grotesque', sans-serif; }
+    .kpi-label { font-size: .85rem; color: #718096; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 4px; }
+    
+    /* Charts & Panels */
+    .panel-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 32px; }
+    .admin-panel { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); border: 1px solid #f1f5f9; }
+    .admin-panel.chart-panel { max-height: 360px; display: flex; flex-direction: column; }
+    .chart-container { position: relative; height: 100%; min-height: 200px; width: 100%; flex: 1; }
+    .panel-title { font-size: 1.05rem; font-weight: 700; color: #1a202c; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    
+    /* Tables */
+    .admin-table-wrap { overflow-x: auto; }
+    .admin-table { width: 100%; border-collapse: collapse; text-align: left; }
+    .admin-table th { padding: 14px 16px; background: #f8fafc; color: #64748b; font-weight: 600; font-size: .8rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #e2e8f0; }
+    .admin-table td { padding: 16px; border-bottom: 1px solid #f1f5f9; font-size: .9rem; color: #1a202c; vertical-align: middle; }
+    .admin-table tr:hover td { background: #f8fafc; }
+    
+    /* Status Badges */
+    .badge { padding: 4px 10px; border-radius: 999px; font-size: .75rem; font-weight: 600; }
+    .bdg-giver { background: #e0e7ff; color: #4338ca; }
+    .bdg-receiver { background: #dcfce7; color: #15803d; }
+    .bdg-admin { background: #fef9c3; color: #a16207; }
+    .bdg-pending { background: #fef08a; color: #854d0e; }
+    .bdg-approved { background: #bbf7d0; color: #166534; }
+    .bdg-active { background: #dcfce7; color: #15803d; }
+    .bdg-closed { background: #f1f5f9; color: #475569; }
+    
+    /* Direct Message Box */
+    .dm-box { background: linear-gradient(135deg, #4F46E5, #7c3aed); border-radius: 16px; padding: 24px; color: white; }
+    .dm-box input, .dm-box textarea, .dm-box select { width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 8px; padding: 10px 12px; margin-bottom: 12px; font-family: inherit; font-size: .9rem; }
+    .dm-box input::placeholder, .dm-box textarea::placeholder { color: rgba(255,255,255,0.6); }
+    .dm-box input:focus, .dm-box textarea:focus, .dm-box select:focus { outline: none; border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.15); }
+    .dm-box select option { background: #4F46E5; color: white; }
+    .btn-dm { background: white; color: #4F46E5; border: none; width: 100%; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: opacity 0.2s; }
+    .btn-dm:hover { opacity: 0.9; }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="admin-sidebar">
+  <div class="admin-logo">
+    <img src="/img/kindcycle.webp" alt="KindCycle" style="height:36px;width:auto;object-fit:contain">
+    KindCycle Admin
+  </div>
+  <nav class="admin-nav">
+    <div class="nav-item active" onclick="switchTab('dashboard', this)">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      Dashboard
+    </div>
+    <div class="nav-item" onclick="switchTab('users', this)">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      Users & Verification
+    </div>
+    <div class="nav-item" onclick="switchTab('items', this)">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+      Items Review
+    </div>
+    <div class="nav-item" onclick="switchTab('fundraisers', this)">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Fundraisers
+    </div>
+    <div class="nav-item" onclick="switchTab('transactions', this)">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      Payments
+    </div>
+    <div class="nav-item" style="color:#ef4444;margin-top:auto" onclick="auth.logout()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Logout
+    </div>
+  </nav>
+</aside>
+
+<!-- Main -->
+<main class="admin-main">
+  <header class="admin-header">
+    <div class="header-title" id="page-title">Overview</div>
+    <div class="header-actions">
+      <div id="admin-profile" style="display:flex;align-items:center;gap:12px;font-weight:600;font-size:.9rem;color:#475569">
+        <div style="width:36px;height:36px;border-radius:50%;background:#4F46E5;color:white;display:flex;align-items:center;justify-content:center">A</div>
+        Admin User
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-content">
+    
+    <!-- DASHBOARD TAB -->
+    <div id="tab-dashboard" class="tab-pane active">
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon" style="background:#e0e7ff;color:#4F46E5"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+          <div><div class="kpi-val" id="kpi-users">...</div><div class="kpi-label">Total Users</div></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon" style="background:#dcfce7;color:#15803d"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <div><div class="kpi-val" id="kpi-given">...</div><div class="kpi-label">Items Given</div></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon" style="background:#fef3c7;color:#b45309"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div><div class="kpi-val" id="kpi-funds">...</div><div class="kpi-label">Funds Donated (XAF)</div></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon" style="background:#f0fdf4;color:#166534"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+          <div><div class="kpi-val" id="kpi-fundraisers">...</div><div class="kpi-label">Active Fundraisers</div></div>
+        </div>
+      </div>
+
+      <div class="panel-grid">
+        <div class="admin-panel chart-panel">
+          <div class="panel-title">Donation Trend (Last 30 Days)</div>
+          <div class="chart-container"><canvas id="chart-donations"></canvas></div>
+        </div>
+        <div class="dm-box">
+          <div style="font-weight:800;font-size:1.15rem;margin-bottom:4px;font-family:'Bricolage Grotesque'">Direct Message / Broadcast</div>
+          <p style="font-size:.85rem;color:rgba(255,255,255,0.8);margin-bottom:20px">Send a real-time push notification.</p>
+          <select id="dm-target">
+            <option value="ALL">📢 Broadcast to ALL users</option>
+            <!-- Users populated by JS -->
+          </select>
+          <input type="text" id="dm-title" placeholder="Notification Title" />
+          <textarea id="dm-msg" rows="3" placeholder="Message content..."></textarea>
+          <input type="text" id="dm-link" placeholder="Optional URL Link" />
+          <button class="btn-dm" onclick="sendAdminNotification()" id="dm-btn">Send Notification 🚀</button>
+        </div>
+      </div>
+
+      <div class="panel-grid">
+        <div class="admin-panel">
+          <div class="panel-title">Recent Successful Payments</div>
+          <div class="admin-table-wrap">
+            <table class="admin-table" id="table-dash-payments">
+              <thead><tr><th>Date</th><th>User</th><th>Amount (XAF)</th><th>Type</th></tr></thead>
+              <tbody><!-- JS --></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="admin-panel chart-panel">
+          <div class="panel-title">Items By Category</div>
+          <div class="chart-container"><canvas id="chart-categories"></canvas></div>
+        </div>
+      </div>
+    </div> <!-- /tab-dashboard -->
+
+    <!-- USERS TAB -->
+    <div id="tab-users" class="tab-pane">
+      <div class="admin-panel" style="margin-bottom:24px">
+        <div class="panel-title">Pending ID Verifications <span class="badge bdg-pending" id="pending-verif-count" style="margin-left:auto">0</span></div>
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="table-verifications">
+            <thead><tr><th>User</th><th>Role</th><th>Document</th><th>Action</th></tr></thead>
+            <tbody><!-- JS --></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="admin-panel">
+        <div class="panel-title">All Users</div>
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="table-users">
+            <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody><!-- JS --></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ITEMS TAB -->
+    <div id="tab-items" class="tab-pane">
+      <div class="admin-panel">
+        <div class="panel-title">Pending Listings</div>
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="table-items">
+            <thead><tr><th>Item</th><th>Category</th><th>Giver</th><th>Condition</th><th>Action</th></tr></thead>
+            <tbody><!-- JS --></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- FUNDRAISERS TAB -->
+    <div id="tab-fundraisers" class="tab-pane">
+      <div class="admin-panel">
+        <div class="panel-title">Active Platform Fundraisers</div>
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="table-fundraisers">
+            <thead><tr><th>Title</th><th>Creator</th><th>Goal (XAF)</th><th>Raised (XAF)</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody><!-- JS --></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRANSACTIONS TAB -->
+    <div id="tab-transactions" class="tab-pane">
+      <div class="admin-panel">
+        <div class="panel-title">All Platform Transactions</div>
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="table-transactions">
+            <thead><tr><th>Ref</th><th>Date</th><th>User</th><th>Amount</th><th>Operator</th><th>Type</th><th>Status</th></tr></thead>
+            <tbody><!-- JS --></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  if (!auth.requireRole('admin', '/')) window.onload = () => {};
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const user = auth.getUser();
+    if (user) {
+      document.getElementById('admin-profile').innerHTML = `
+        <div style="width:36px;height:36px;border-radius:50%;background:#4F46E5;color:white;display:flex;align-items:center;justify-content:center">${(user.name||'A')[0]}</div>
+        ${user.name}
+      `;
+    }
+    loadDashboard();
+  });
+
+  const switchTab = (tabId, el) => {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    document.getElementById(`tab-${tabId}`).classList.add('active');
+    
+    document.getElementById('page-title').textContent = el.textContent.trim();
+
+    if (tabId === 'dashboard') loadDashboard();
+    if (tabId === 'users') { loadUsers(); loadVerifications(); }
+    if (tabId === 'items') loadPendingItems();
+    if (tabId === 'fundraisers') loadFundraisers();
+    if (tabId === 'transactions') loadTransactions();
+  };
+
+  // --- Dashboard Logic ---
+  const loadDashboard = async () => {
+    try {
+      const [statsRes, detailRes, listRes] = await Promise.all([
+        api.get('/admin/stats'),
+        api.get('/admin/stats/detailed'),
+        api.get('/admin/users?limit=100') // for DM dropdown
+      ]);
+      
+      const { data: stats } = statsRes;
+      document.getElementById('kpi-users').textContent = stats.users.total;
+      document.getElementById('kpi-given').textContent = stats.items.given;
+      document.getElementById('kpi-funds').textContent = stats.transactions.revenue.toLocaleString();
+      document.getElementById('kpi-fundraisers').textContent = stats.fundraisers.active;
+
+      const { data: dtl } = detailRes;
+      
+      // Render Donations Chart
+      const donCtx = document.getElementById('chart-donations').getContext('2d');
+      if (window.donChart) window.donChart.destroy();
+      window.donChart = new Chart(donCtx, {
+        type: 'line',
+        data: {
+          labels: dtl.donationsByDay.map(d => d._id),
+          datasets: [{
+            label: 'Donations (XAF)',
+            data: dtl.donationsByDay.map(d => d.total),
+            borderColor: '#4F46E5', backgroundColor: 'rgba(79,70,229,0.1)',
+            fill: true, tension: 0.4, borderWidth: 3
+          }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+      });
+
+      // Render Categories Chart
+      const catCtx = document.getElementById('chart-categories').getContext('2d');
+      if (window.catChart) window.catChart.destroy();
+      window.catChart = new Chart(catCtx, {
+        type: 'doughnut',
+        data: {
+          labels: dtl.itemsByCategory.map(c => c._id),
+          datasets: [{
+            data: dtl.itemsByCategory.map(c => c.count),
+            backgroundColor: ['#4F46E5', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#0ea5e9']
+          }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+      });
+
+      // Render Recent Transactions
+      document.getElementById('table-dash-payments').querySelector('tbody').innerHTML = dtl.recentTransactions.length ?
+        dtl.recentTransactions.map(t => `<tr>
+          <td>${new Date(t.createdAt).toLocaleDateString()}</td>
+          <td>${t.user?.name || 'Unknown'}</td>
+          <td style="font-weight:600;color:#15803d">+${t.amount.toLocaleString()}</td>
+          <td><span class="badge bdg-giver">${t.type.replace('_',' ')}</span></td>
+        </tr>`).join('') : '<tr><td colspan="4" style="text-align:center">No recent transactions</td></tr>';
+
+      // Populate DM Dropdown
+      const dmSelect = document.getElementById('dm-target');
+      dmSelect.innerHTML = `<option value="ALL">📢 Broadcast to ALL users</option>` + 
+        listRes.data?.users.map(u => `<option value="${u._id}">${u.name} (${u.email})</option>`).join('');
+
+    } catch (e) { console.error('Dashboard load failed', e); }
+  };
+
+  // --- Direct Message ---
+  window.sendAdminNotification = async () => {
+    const target = document.getElementById('dm-target').value;
+    const title = document.getElementById('dm-title').value.trim();
+    const msg = document.getElementById('dm-msg').value.trim();
+    const link = document.getElementById('dm-link').value.trim();
+    if (!title || !msg) return alert('Title and Message required');
+    
+    const btn = document.getElementById('dm-btn');
+    btn.disabled = true; btn.textContent = 'Sending...';
+    try {
+      if (target === 'ALL') {
+        await api.post('/admin/notify-user', { broadcast: true, title, message: msg, link });
+      } else {
+        await api.post('/admin/notify-user', { userId: target, title, message: msg, link });
+      }
+      alert('Notification sent successfully!');
+      document.getElementById('dm-title').value = '';
+      document.getElementById('dm-msg').value = '';
+      document.getElementById('dm-link').value = '';
+    } catch(e) { alert('Failed: ' + e.message); }
+    btn.disabled = false; btn.textContent = 'Send Notification 🚀';
+  };
+
+  // --- Users & Verifications ---
+  const loadVerifications = async () => {
+    try {
+      const res = await api.get('/admin/pending-verifications');
+      const count = res.data.length;
+      document.getElementById('pending-verif-count').textContent = count;
+      document.getElementById('table-verifications').querySelector('tbody').innerHTML = count ?
+        res.data.map(u => `<tr>
+          <td>${u.name}<br><small style="color:#64748b">${u.email}</small></td>
+          <td><span class="badge bdg-${u.role}">${u.role}</span></td>
+          <td><a href="/api/uploads/id/${u.idScanFileId}?token=${auth.getToken()}" target="_blank" style="color:#4F46E5;text-decoration:none">View Document 📄</a></td>
+          <td><button onclick="approveVerification('${u._id}')" style="background:#15803d;color:white;border:none;padding:6px 12px;border-radius:6px;cursor:pointer">Approve</button></td>
+        </tr>`).join('') : '<tr><td colspan="4" style="text-align:center">No pending verifications.</td></tr>';
+    } catch(e) {}
+  };
+
+  const loadUsers = async () => {
+    try {
+      const res = await api.get('/admin/users');
+      document.getElementById('table-users').querySelector('tbody').innerHTML = res.data.users.map(u => `<tr>
+        <td>${u.name}</td><td>${u.email}</td>
+        <td><span class="badge bdg-${u.role}">${u.role}</span></td>
+        <td>${u.isBanned ? '<span class="badge bdg-closed">Banned</span>' : '<span class="badge bdg-active">Active</span>'}</td>
+        <td>
+          <button onclick="toggleBanUser('${u._id}', ${u.isBanned})" style="background:${u.isBanned ? '#15803d' : '#dc2626'};color:white;border:none;padding:6px 12px;border-radius:6px;cursor:pointer">${u.isBanned ? 'Unban' : 'Ban'}</button>
+        </td>
+      </tr>`).join('');
+    } catch(e) {}
+  };
+
+  window.approveVerification = async (id) => {
+    if(!confirm('Approve this ID?')) return;
+    try { await api.patch(`/admin/users/${id}/verify`); alert('Approved'); loadVerifications(); loadUsers(); } catch(e) { alert(e.message); }
+  };
+  window.toggleBanUser = async (id, currentStatus) => {
+    const reason = currentStatus ? '' : prompt('Reason for ban?');
+    if(!currentStatus && reason === null) return;
+    try { await api.patch(`/admin/users/${id}/ban`, { banned: !currentStatus, reason }); alert('Status updated'); loadUsers(); } catch(e) { alert(e.message); }
+  };
+
+  // --- Items ---
+  const loadPendingItems = async () => {
+    try {
+      const res = await api.get('/admin/pending-items');
+      document.getElementById('table-items').querySelector('tbody').innerHTML = res.data.items.length ? res.data.items.map(i => `<tr>
+        <td><strong>${i.title}</strong><br><a href="/item.html?id=${i._id}" target="_blank" style="color:#4F46E5;font-size:.8rem;text-decoration:none">Preview Listing ↗</a></td>
+        <td>${i.category}</td>
+        <td>${i.giver?.name} ${i.giver?.idVerified ? '<span style="color:#15803d">✓</span>' : ''}</td>
+        <td>${i.condition.replace('_',' ')}</td>
+        <td style="display:flex;gap:8px">
+          <button onclick="decideItem('${i._id}', 'approve')" style="background:#15803d;color:white;border:none;padding:6px 12px;border-radius:6px;cursor:pointer">Approve</button>
+          <button onclick="decideItem('${i._id}', 'reject')" style="background:#dc2626;color:white;border:none;padding:6px 12px;border-radius:6px;cursor:pointer">Reject</button>
+        </td>
+      </tr>`).join('') : '<tr><td colspan="5" style="text-align:center">No pending items.</td></tr>';
+    } catch(e) {}
+  };
+
+  window.decideItem = async (id, action) => {
+    const note = prompt(`Enter optional note for ${action}ing this item:`);
+    if(note === null) return;
+    try { await api.patch(`/admin/items/${id}/${action}`, action==='reject'?{reason:note}:{note}); loadPendingItems(); } catch(e) { alert(e.message); }
+  };
+
+  // --- Fundraisers ---
+  const loadFundraisers = async () => {
+    try {
+      const res = await api.get('/admin/fundraisers');
+      document.getElementById('table-fundraisers').querySelector('tbody').innerHTML = res.data.fundraisers.length ? res.data.fundraisers.map(f => `<tr>
+        <td><strong>${f.title}</strong><br><a href="/fundraisers.html#${f._id}" target="_blank" style="color:#4F46E5;font-size:.8rem;text-decoration:none">View campaign ↗</a></td>
+        <td>${f.creator?.name}</td>
+        <td>${f.goalAmount.toLocaleString()}</td>
+        <td style="color:#15803d;font-weight:600">${f.raised.toLocaleString()}</td>
+        <td><span class="badge bdg-${f.status}">${f.status}</span></td>
+        <td>${f.status === 'active' ? `<button onclick="closeFundraiserAdmin('${f._id}')" style="background:#dc2626;color:white;border:none;padding:6px 12px;border-radius:6px;cursor:pointer">Terminate</button>` : ''}</td>
+      </tr>`).join('') : '<tr><td colspan="6" style="text-align:center">No fundraisers found.</td></tr>';
+    } catch(e) {}
+  };
+
+  window.closeFundraiserAdmin = async (id) => {
+    const reason = prompt('Reason for terminating this fundraiser?');
+    if(!reason) return;
+    try { await api.patch(`/admin/fundraisers/${id}/close`, { reason }); loadFundraisers(); } catch(e) { alert(e.message); }
+  };
+
+  // --- Transactions ---
+  const loadTransactions = async () => {
+    try {
+      const res = await api.get('/admin/transactions');
+      document.getElementById('table-transactions').querySelector('tbody').innerHTML = res.data.transactions.length ? res.data.transactions.map(t => `<tr>
+        <td><span style="font-family:monospace;font-size:.8rem;background:#f1f5f9;padding:2px 6px;border-radius:4px">${t.campayRef || t.campayExternalRef || t._id}</span></td>
+        <td>${new Date(t.createdAt).toLocaleString()}</td>
+        <td>${t.user?.name || 'Unknown'}</td>
+        <td style="font-weight:600">${t.amount.toLocaleString()}</td>
+        <td><span style="text-transform:uppercase">${t.operator}</span></td>
+        <td><span class="badge bdg-giver">${t.type.replace('_',' ')}</span></td>
+        <td><span class="badge ${t.status==='successful'?'bdg-approved':t.status==='failed'?'bdg-closed':'bdg-pending'}">${t.status}</span></td>
+      </tr>`).join('') : '<tr><td colspan="7" style="text-align:center">No transactions found.</td></tr>';
+    } catch(e) {}
+  };
+
+</script>
+</body>
+</html>

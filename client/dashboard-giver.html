@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Giver Dashboard — KindCycle</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/main.css"/>
+</head>
+<body>
+<nav class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="/" class="logo"><img src="/img/kindcycle.webp" alt="KindCycle" style="height:36px;width:auto;object-fit:contain"><span class="logo-text">KindCycle</span></a>
+    <div class="nav-actions" id="nav-actions"></div>
+  </div>
+</nav>
+
+<div class="dashboard-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-profile">
+      <div class="sidebar-avatar" id="sb-avatar">G</div>
+      <div class="sidebar-name" id="sb-name">Giver</div>
+      <div class="sidebar-role">Giver</div>
+      <div class="sidebar-verified hidden" id="sb-verified">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        ID Verified
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#overview" data-tab="overview" class="active">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Overview
+      </a>
+      <a href="#items" data-tab="items">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        My Items
+      </a>
+      <a href="#requests" data-tab="requests" style="position:relative">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+        Requests
+        <span id="pending-badge" class="hidden" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:var(--color-error);color:white;font-size:.7rem;font-weight:700;border-radius:9999px;min-width:18px;height:18px;display:flex;align-items:center;justify-content:center;padding:0 5px"></span>
+      </a>
+      <a href="#notifications" data-tab="notifications">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Notifications
+      </a>
+      <a href="#fundraisers" data-tab="fundraisers">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Fundraisers
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="dashboard-main">
+
+    <!-- Overview tab -->
+    <div id="tab-overview" class="tab-content">
+      <div class="dashboard-header">
+        <h1>Welcome back, <span id="welcome-name">Giver</span></h1>
+        <p>Here's a summary of your activity on KindCycle.</p>
+      </div>
+
+      <div class="stats-row">
+        <div class="dash-stat"><div class="dash-stat-label">Total Items Posted</div><div class="dash-stat-value" id="stat-total">—</div></div>
+        <div class="dash-stat"><div class="dash-stat-label">Items Approved</div><div class="dash-stat-value" id="stat-approved">—</div></div>
+        <div class="dash-stat"><div class="dash-stat-label">Items Given</div><div class="dash-stat-value" id="stat-given">—</div></div>
+        <div class="dash-stat"><div class="dash-stat-label">Trust Score</div><div class="dash-stat-value" id="stat-trust">—</div><div class="dash-stat-sub">out of 100</div></div>
+      </div>
+
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <h3>Quick Actions</h3>
+        </div>
+        <div style="padding:24px;display:flex;gap:16px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="openPostModal()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Post New Item
+          </button>
+          <a href="/browse.html" class="btn btn-outline">Browse Community</a>
+          <a href="/settings.html" class="btn btn-ghost">Edit Profile</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Items tab -->
+    <div id="tab-items" class="tab-content hidden">
+      <div class="dashboard-header">
+        <h1>My Items</h1>
+        <button class="btn btn-primary" onclick="openPostModal()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Post New Item
+        </button>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:20px">
+        <button class="cat-chip active" data-filter="all">All</button>
+        <button class="cat-chip" data-filter="pending">Pending</button>
+        <button class="cat-chip" data-filter="approved">Approved</button>
+        <button class="cat-chip" data-filter="given">Given</button>
+        <button class="cat-chip" data-filter="rejected">Rejected</button>
+      </div>
+      <div id="items-list"><div style="text-align:center;padding:32px"><div class="spinner" style="margin:0 auto"></div></div></div>
+    </div>
+
+    <!-- Requests tab -->
+    <div id="tab-requests" class="tab-content hidden">
+      <div class="dashboard-header"><h1>Requests Received</h1><p>Review requests from community members</p></div>
+      <div id="requests-list"><div style="text-align:center;padding:32px"><div class="spinner" style="margin:0 auto"></div></div></div>
+    </div>
+
+    <!-- Notifications tab -->
+    <div id="tab-notifications" class="tab-content hidden">
+      <div class="dashboard-header"><h1>Notifications</h1></div>
+      <div id="notifications-list"><div style="text-align:center;padding:32px"><div class="spinner" style="margin:0 auto"></div></div></div>
+    </div>
+
+    <!-- Fundraisers tab -->
+    <div id="tab-fundraisers" class="tab-content hidden">
+      <div class="dashboard-header" style="display:flex;justify-content:space-between;align-items:center">
+        <div><h1>My Fundraisers</h1><p>Track donations, milestones, and manage your campaigns</p></div>
+        <a href="/create-fundraiser.html" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Fundraiser
+        </a>
+      </div>
+      <div id="fundraiser-list"><div style="text-align:center;padding:32px"><div class="spinner" style="margin:0 auto"></div></div></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Post Item Modal -->
+<div class="modal-overlay" id="post-modal">
+  <div class="modal" style="max-width:640px">
+    <div class="modal-header">
+      <div class="modal-title">Post a New Item</div>
+      <button class="modal-close" onclick="closePostModal()">✕</button>
+    </div>
+    <form id="post-form" enctype="multipart/form-data">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+        <div class="form-group" style="grid-column:1/-1">
+          <label class="form-label">Item Title <span>*</span></label>
+          <input type="text" class="form-input" id="post-title" placeholder="e.g. Winter jacket size M" maxlength="120" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Category <span>*</span></label>
+          <select class="form-select" id="post-category" required>
+            <option value="">Select category</option>
+            <option>Clothing</option><option>Electronics</option><option>Furniture</option>
+            <option>Books</option><option>Food</option><option>Toys</option>
+            <option>Sports</option><option>Medical</option><option>School Supplies</option>
+            <option>Household</option><option>Baby &amp; Kids</option><option>Tools</option><option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Condition <span>*</span></label>
+          <select class="form-select" id="post-condition">
+            <option value="new">New</option>
+            <option value="like_new">Like New</option>
+            <option value="good" selected>Good</option>
+            <option value="fair">Fair</option>
+            <option value="poor">Poor</option>
+          </select>
+        </div>
+        <div class="form-group" style="grid-column:1/-1">
+          <label class="form-label">Description <span>*</span></label>
+          <textarea class="form-textarea" id="post-description" placeholder="Describe the item, its history, and why it might be useful..." required style="min-height:100px"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Delivery Method</label>
+          <select class="form-select" id="post-delivery">
+            <option value="pickup">Pickup Only</option>
+            <option value="delivery">Delivery</option>
+            <option value="both">Both</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tags (comma separated)</label>
+          <input type="text" class="form-input" id="post-tags" placeholder="warm, winter, adult" />
+        </div>
+        <div class="form-group" style="grid-column:1/-1">
+          <label class="form-label">Item Photos (max 5)</label>
+          <div class="upload-area" style="padding:24px">
+            <input type="file" name="images" id="post-images" accept="image/*" multiple />
+            <div class="upload-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg></div>
+            <div class="upload-text"><strong>Click to upload</strong> photos<br/><span style="font-size:.75rem;color:var(--color-text-muted)">JPEG, PNG, WebP — max 10MB each</span></div>
+          </div>
+        </div>
+      </div>
+      <div id="post-error" class="form-error hidden" style="margin-bottom:12px"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" onclick="closePostModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="post-submit-btn">Submit for Review</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/icons.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  if (!auth.requireRole('giver')) return;
+  const user = auth.getUser();
+  document.getElementById('sb-avatar').textContent = (user.name||'G')[0].toUpperCase();
+  document.getElementById('sb-name').textContent = user.name;
+  document.getElementById('welcome-name').textContent = user.name.split(' ')[0];
+  if (user.idVerified) document.getElementById('sb-verified').classList.remove('hidden');
+
+  loadStats();
+  initTabs();
+
+  // Handle URL tab
+  const hash = window.location.hash.replace('#','') || 'overview';
+  switchTab(hash);
+});
+
+const loadStats = async () => {
+  try {
+    const res = await api.get('/items/my');
+    const items = res.data.items;
+    document.getElementById('stat-total').textContent = res.data.total;
+    document.getElementById('stat-approved').textContent = items.filter(i=>i.status==='approved'||i.status==='reserved').length;
+    document.getElementById('stat-given').textContent = items.filter(i=>i.status==='given').length;
+    const user = auth.getUser();
+    document.getElementById('stat-trust').textContent = user.trustScore || 0;
+
+    // Check pending requests
+    const reqRes = await api.get('/requests?status=pending');
+    const pendingCount = reqRes.data.total || 0;
+    if (pendingCount > 0) {
+      const badge = document.getElementById('pending-badge');
+      badge.textContent = pendingCount;
+      badge.classList.remove('hidden');
+    }
+  } catch(e) { console.warn(e.message); }
+};
+
+const initTabs = () => {
+  document.querySelectorAll('.sidebar-nav [data-tab]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      switchTab(link.dataset.tab);
+      history.pushState(null,'','#'+link.dataset.tab);
+    });
+  });
+  document.querySelectorAll('[data-filter]').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('[data-filter]').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      loadMyItems(chip.dataset.filter);
+    });
+  });
+};
+
+const switchTab = (tab) => {
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.add('hidden'));
+  document.querySelectorAll('.sidebar-nav [data-tab]').forEach(l=>l.classList.remove('active'));
+  const tabEl = document.getElementById('tab-'+tab);
+  if (tabEl) tabEl.classList.remove('hidden');
+  const link = document.querySelector(`.sidebar-nav [data-tab="${tab}"]`);
+  if (link) link.classList.add('active');
+  if (tab==='items') loadMyItems();
+  if (tab==='requests') loadRequests();
+  if (tab==='notifications') loadTabNotifications();
+  if (tab==='fundraisers') loadMyFundraisers();
+};
+
+const loadMyFundraisers = async () => {
+  const el = document.getElementById('fundraiser-list');
+  if (!el) return;
+  el.innerHTML = '<div style="text-align:center;padding:32px"><div class="spinner" style="margin:0 auto"></div></div>';
+  try {
+    const res = await api.get('/fundraisers/my');
+    const fundraisers = Array.isArray(res.data?.data) ? res.data.data : (res.data?.fundraisers || []);
+    if (!fundraisers.length) {
+      el.innerHTML = `<div class="empty-state">
+        <div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="empty-title">No fundraisers yet</div>
+        <div class="empty-desc">Create your first fundraiser to start collecting community support.</div>
+        <a href="/create-fundraiser.html" class="btn btn-primary">Start a Fundraiser</a>
+      </div>`;
+      return;
+    }
+    el.innerHTML = fundraisers.map(f => {
+      const raised = f.raised || 0;
+      let pct = Number(((raised / f.goalAmount) * 100).toFixed(1)) || 0;
+      pct = Math.min(100, pct);
+      const statusColors = { active: '#16a34a', completed: '#4F46E5', closed: '#6b7280' };
+      const statusBg = { active: '#dcfce7', completed: '#ede9fe', closed: '#f3f4f6' };
+      const msList = (f.milestones || []).map(m =>
+        `<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #f3f4f6">
+          <div style="width:18px;height:18px;border-radius:50%;background:${m.reached?'#16a34a':'#e5e7eb'};display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            ${m.reached ? '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : ''}
+          </div>
+          <span style="font-size:.83rem;font-weight:600;${m.reached?'color:#16a34a':'color:#6b7280'}">${m.title}</span>
+          <span style="font-size:.78rem;color:#9ca3af;margin-left:auto">${m.amount.toLocaleString()} XAF</span>
+        </div>`
+      ).join('');
+      return `
+      <div style="background:white;border:1px solid #e5e7eb;border-radius:20px;padding:28px;margin-bottom:24px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+          <div>
+            <div style="font-family:var(--font-display);font-size:1.2rem;font-weight:800;margin-bottom:4px">${f.title}</div>
+            <span style="background:${statusBg[f.status]||'#f3f4f6'};color:${statusColors[f.status]||'#6b7280'};font-size:.75rem;font-weight:700;padding:3px 12px;border-radius:999px">${f.status.toUpperCase()}</span>
+          </div>
+          ${f.status==='active'?`<button onclick="requestWithdrawal('${f._id}')" style="background:#1d4ed8;color:white;border:none;border-radius:999px;padding:10px 20px;font-weight:700;font-size:.85rem;cursor:pointer;display:flex;align-items:center;gap:6px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Request Withdrawal
+          </button>`:''}
+        </div>
+
+        <!-- Analytics Row -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">
+          <div style="background:#eff6ff;border-radius:12px;padding:16px;text-align:center">
+            <div style="font-size:1.4rem;font-weight:800;color:#1d4ed8">${raised.toLocaleString()}</div>
+            <div style="font-size:.72rem;color:#3b82f6;font-weight:600">XAF Raised</div>
+          </div>
+          <div style="background:#f0fdf4;border-radius:12px;padding:16px;text-align:center">
+            <div style="font-size:1.4rem;font-weight:800;color:#16a34a">${(f.goalAmount||0).toLocaleString()}</div>
+            <div style="font-size:.72rem;color:#22c55e;font-weight:600">XAF Goal</div>
+          </div>
+          <div style="background:#fef3c7;border-radius:12px;padding:16px;text-align:center">
+            <div style="font-size:1.4rem;font-weight:800;color:#d97706">${f.donorCount||0}</div>
+            <div style="font-size:.72rem;color:#f59e0b;font-weight:600">Donors</div>
+          </div>
+          <div style="background:#f5f3ff;border-radius:12px;padding:16px;text-align:center">
+            <div style="font-size:1.4rem;font-weight:800;color:#7c3aed">${pct}%</div>
+            <div style="font-size:.72rem;color:#8b5cf6;font-weight:600">Complete</div>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div style="margin-bottom:20px">
+          <div style="height:10px;background:#e5e7eb;border-radius:9999px;overflow:hidden">
+            <div style="height:100%;width:${pct}%;background:#4F46E5;border-radius:9999px;transition:width .5s"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:.78rem;color:#6b7280;margin-top:6px">
+            <span>${raised.toLocaleString()} XAF raised</span>
+            <span>Goal: ${(f.goalAmount||0).toLocaleString()} XAF</span>
+          </div>
+        </div>
+
+        <!-- Milestones -->
+        ${msList ? `<div style="margin-bottom:16px">
+          <div style="font-weight:700;font-size:.85rem;color:#374151;margin-bottom:8px">Milestones</div>
+          ${msList}
+        </div>` : ''}
+
+        <div style="display:flex;gap:8px">
+          <a href="/fundraisers.html" class="btn btn-sm btn-outline">View Public Page</a>
+          ${f.status==='active'?`<button onclick="closeFundraiser('${f._id}')" style="padding:8px 16px;border:2px solid #ef4444;color:#ef4444;background:none;border-radius:999px;font-size:.85rem;font-weight:600;cursor:pointer">Close Campaign</button>`:''}
+        </div>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    el.innerHTML = `<div class="empty-state"><div class="empty-desc">Could not load fundraisers.</div></div>`;
+  }
+};
+
+window.requestWithdrawal = async (id) => {
+  window.location.href = `/withdraw.html?id=${id}`;
+};
+
+window.closeFundraiser = async (id) => {
+  if (!confirm('Close this fundraiser? It will no longer accept donations.')) return;
+  try {
+    await api.patch(`/fundraisers/${id}`, { status: 'closed' });
+    showToast('Fundraiser closed.', 'success');
+    loadMyFundraisers();
+  } catch(e) { showToast(e.message || 'Could not close fundraiser', 'error'); }
+};
+
+const loadMyItems = async (filter='all') => {
+  const el = document.getElementById('items-list');
+  el.innerHTML = '<div style="text-align:center;padding:32px"><div class="spinner" style="margin:0 auto"></div></div>';
+  try {
+    const params = filter!=='all' ? `?status=${filter}` : '';
+    const res = await api.get('/items/my'+params);
+    if (!res.data.items.length) {
+      el.innerHTML = `<div class="empty-state"><div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05"/><path d="M12 22.08V12"/></svg></div><div class="empty-title">No items yet</div><div class="empty-desc">Start by posting your first item for the community.</div><button class="btn btn-primary" onclick="openPostModal()">Post an Item</button></div>`;
+      return;
+    }
+    el.innerHTML = `<div class="dash-card"><div class="dash-card-body"><table class="table">
+      <thead><tr><th>Item</th><th>Category</th><th>Status</th><th>Views</th><th>Requests</th><th>Actions</th></tr></thead>
+      <tbody>${res.data.items.map(item=>`
+        <tr>
+          <td><a href="/item.html?id=${item._id}" style="font-weight:600;color:var(--color-primary)">${item.title}</a></td>
+          <td>${item.category}</td>
+          <td><span class="status-pill status-${item.status}">${item.status}</span></td>
+          <td>${item.viewCount||0}</td>
+          <td>${item.requestCount||0}</td>
+          <td><div style="display:flex;gap:6px">
+            <a href="/item.html?id=${item._id}" class="btn btn-sm btn-outline">View</a>
+            ${item.status==='pending'||item.status==='approved'?`<button class="btn btn-sm btn-danger" onclick="deleteItem('${item._id}')">Delete</button>`:''}
+          </div></td>
+        </tr>`).join('')}
+      </tbody></table></div></div>`;
+  } catch(e) { el.innerHTML = `<div class="empty-state"><div class="empty-desc">Could not load items.</div></div>`; }
+};
+
+const loadRequests = async () => {
+  const el = document.getElementById('requests-list');
+  el.innerHTML = '<div style="text-align:center;padding:32px"><div class="spinner" style="margin:0 auto"></div></div>';
+  try {
+    const res = await api.get('/requests');
+    if (!res.data.requests.length) {
+      el.innerHTML = `<div class="empty-state"><div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></div><div class="empty-title">No requests yet</div><div class="empty-desc">When people request your items, they will appear here.</div></div>`;
+      return;
+    }
+    el.innerHTML = `<div class="dash-card"><div class="dash-card-body"><table class="table">
+      <thead><tr><th>Item</th><th>From</th><th>Justification</th><th>Status</th><th>Actions</th></tr></thead>
+      <tbody>${res.data.requests.map(r=>`
+        <tr>
+          <td><a href="/item.html?id=${r.item?._id}" style="font-weight:600">${r.item?.title||'—'}</a></td>
+          <td><div style="display:flex;align-items:center;gap:8px">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--color-ui);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem">${(r.receiver?.name||'?')[0]}</div>
+            <div><div style="font-weight:600;font-size:.875rem">${r.receiver?.name||'—'}</div><div style="font-size:.75rem;color:var(--color-text-muted)">${r.receiver?.idVerified?'✓ Verified':''}</div></div>
+          </div></td>
+          <td style="max-width:200px;font-size:.85rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.justification}">${r.justification}</td>
+          <td><span class="status-pill status-${r.status}">${r.status}</span></td>
+          <td><div style="display:flex;gap:6px">${r.status==='pending'?`
+            <button class="btn btn-sm btn-accent" onclick="respondRequest('${r._id}','accept')">Accept</button>
+            <button class="btn btn-sm btn-outline" onclick="respondRequest('${r._id}','reject')">Decline</button>
+          `:'—'}</div></td>
+        </tr>`).join('')}
+      </tbody></table></div></div>`;
+  } catch(e) { el.innerHTML = `<div class="empty-state"><div class="empty-desc">Could not load requests.</div></div>`; }
+};
+
+const loadTabNotifications = async () => {
+  const el = document.getElementById('notifications-list');
+  el.innerHTML = '<div style="text-align:center;padding:32px"><div class="spinner" style="margin:0 auto"></div></div>';
+  try {
+    const res = await api.get('/users/notifications');
+    if (!res.data.notifications.length) {
+      el.innerHTML = `<div class="empty-state"><div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div><div class="empty-title">No notifications</div></div>`;
+      return;
+    }
+    await api.patch('/users/notifications/read-all', {});
+    const iconMap = typeof Icons !== 'undefined' ? {
+      item_approved: Icons.checkCircle, item_rejected: Icons.cancelCircle,
+      request_received: Icons.hands, request_accepted: Icons.celebration,
+      id_verified: Icons.id, payment_success: Icons.card,
+      review_received: Icons.star, system: Icons.bell,
+      fundraiser_milestone: Icons.star, fundraiser_donation: Icons.card,
+      payment_failed: Icons.cancelCircle,
+    } : {};
+    const bellIcon = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`;
+    el.innerHTML = `<div style="display:flex;flex-direction:column;gap:12px">${res.data.notifications.map(n=>`
+      <div style="background:white;border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:20px;display:flex;gap:16px;align-items:flex-start;${!n.read?'border-left:4px solid var(--color-accent)':''}">
+        <div style="font-size:1.5rem">${iconMap[n.type] || bellIcon}</div>
+        <div style="flex:1"><div style="font-weight:700;margin-bottom:4px">${n.title}</div><div style="font-size:.875rem;color:var(--color-text-secondary)">${n.message}</div></div>
+        <div style="font-size:.75rem;color:var(--color-text-muted);white-space:nowrap">${new Date(n.createdAt).toLocaleDateString()}</div>
+      </div>`).join('')}</div>`;
+  } catch(e) { el.innerHTML = `<div class="empty-state"><div class="empty-desc">Could not load notifications.</div></div>`; }
+};
+
+window.deleteItem = async (id) => {
+  if (!confirm('Delete this item? This cannot be undone.')) return;
+  try { await api.delete('/items/'+id); showToast('Item deleted','success'); loadMyItems(); }
+  catch(e) { showToast(e.message,'error'); }
+};
+
+window.respondRequest = async (id, action) => {
+  try {
+    await api.patch(`/requests/${id}/${action}`, {});
+    showToast(action==='accept'?'Request accepted!':'Request declined', action==='accept'?'success':'info');
+    loadRequests();
+    loadStats();
+  } catch(e) { showToast(e.message,'error'); }
+};
+
+window.openPostModal = () => document.getElementById('post-modal').classList.add('open');
+window.closePostModal = () => { document.getElementById('post-modal').classList.remove('open'); document.getElementById('post-form').reset(); };
+document.getElementById('post-modal').addEventListener('click', (e) => { if(e.target===e.currentTarget) closePostModal(); });
+
+document.getElementById('post-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('post-submit-btn');
+  const errEl = document.getElementById('post-error');
+  errEl.classList.add('hidden');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner spinner-sm"></div> Submitting...';
+  try {
+    const fd = new FormData();
+    fd.append('title', document.getElementById('post-title').value);
+    fd.append('category', document.getElementById('post-category').value);
+    fd.append('condition', document.getElementById('post-condition').value);
+    fd.append('description', document.getElementById('post-description').value);
+    fd.append('deliveryMethod', document.getElementById('post-delivery').value);
+    fd.append('tags', document.getElementById('post-tags').value);
+    Array.from(document.getElementById('post-images').files).forEach(f => fd.append('images', f));
+    await api.upload('/items', fd);
+    showToast('Item submitted for review!', 'success');
+    closePostModal();
+    switchTab('items');
+    loadMyItems();
+    loadStats();
+  } catch(e) {
+    errEl.textContent = e.message;
+    errEl.classList.remove('hidden');
+    btn.disabled = false;
+    btn.textContent = 'Submit for Review';
+  }
+});
+</script>
+</body>
+</html>

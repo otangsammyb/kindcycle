@@ -1,0 +1,301 @@
+2026-04-05 15:34:44 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 15:34:49 [[31merror[39m]: ❌ MongoDB connection failed: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017 {"errorLabelSet":{},"reason":{"type":"Unknown","servers":{"localhost:27017":{"address":"localhost:27017","type":"Unknown","hosts":[],"passives":[],"arbiters":[],"tags":{},"minWireVersion":0,"maxWireVersion":0,"roundTripTime":-1,"minRoundTripTime":0,"lastUpdateTime":43338441,"lastWriteDate":0,"error":{"errorLabelSet":{},"beforeHandshake":false},"topologyVersion":null,"setName":null,"setVersion":null,"electionId":null,"logicalSessionTimeoutMinutes":null,"maxMessageSizeBytes":null,"maxWriteBatchSize":null,"maxBsonObjectSize":null,"primary":null,"me":null,"$clusterTime":null,"iscryptd":false}},"stale":false,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"setName":null,"maxElectionId":null,"maxSetVersion":null,"commonWireVersion":0,"logicalSessionTimeoutMinutes":null},"cause":{"type":"Unknown","servers":{"localhost:27017":{"address":"localhost:27017","type":"Unknown","hosts":[],"passives":[],"arbiters":[],"tags":{},"minWireVersion":0,"maxWireVersion":0,"roundTripTime":-1,"minRoundTripTime":0,"lastUpdateTime":43338441,"lastWriteDate":0,"error":{"errorLabelSet":{},"beforeHandshake":false},"topologyVersion":null,"setName":null,"setVersion":null,"electionId":null,"logicalSessionTimeoutMinutes":null,"maxMessageSizeBytes":null,"maxWriteBatchSize":null,"maxBsonObjectSize":null,"primary":null,"me":null,"$clusterTime":null,"iscryptd":false}},"stale":false,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"setName":null,"maxElectionId":null,"maxSetVersion":null,"commonWireVersion":0,"logicalSessionTimeoutMinutes":null},"stack":"MongooseServerSelectionError: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017\n    at _handleConnectionErrors (C:\\Users\\Administrateur\\Desktop\\claude-leaked-files-main\\smartpitch\\backend\\node_modules\\mongoose\\lib\\connection.js:1169:11)\n    at NativeConnection.openUri (C:\\Users\\Administrateur\\Desktop\\claude-leaked-files-main\\smartpitch\\backend\\node_modules\\mongoose\\lib\\connection.js:1100:11)\n    at connectDB (C:\\Users\\Administrateur\\Desktop\\claude-leaked-files-main\\smartpitch\\backend\\src\\config\\db.ts:7:5)"}
+2026-04-05 15:52:34 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 15:52:34 [[31merror[39m]: ❌ MongoDB connection failed: querySrv ECONNREFUSED _mongodb._tcp.cluster0.y9n3kbt.mongodb.net {"code":"ECONNREFUSED","syscall":"querySrv","hostname":"_mongodb._tcp.cluster0.y9n3kbt.mongodb.net","stack":"Error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.y9n3kbt.mongodb.net\n    at QueryReqWrap.onresolve [as oncomplete] (node:internal/dns/promises:294:17)"}
+2026-04-05 15:53:18 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 15:53:18 [[31merror[39m]: ❌ MongoDB connection failed: querySrv ECONNREFUSED _mongodb._tcp.cluster0.y9n3kbt.mongodb.net {"code":"ECONNREFUSED","syscall":"querySrv","hostname":"_mongodb._tcp.cluster0.y9n3kbt.mongodb.net","stack":"Error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.y9n3kbt.mongodb.net\n    at QueryReqWrap.onresolve [as oncomplete] (node:internal/dns/promises:294:17)"}
+2026-04-05 15:54:28 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 15:54:30 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 15:55:33 [[32minfo[39m]: [0mPOST /api/auth/register [33m404[0m 52.279 ms - -[0m 
+2026-04-05 15:56:50 [[32minfo[39m]: [0mPOST /api/auth/register [33m404[0m 3.637 ms - 1682[0m 
+2026-04-05 15:57:42 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 15:57:44 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 15:58:18 [[32minfo[39m]: [0mPOST /api/auth/register [32m201[0m 1358.220 ms - 565[0m 
+2026-04-05 15:58:36 [[32minfo[39m]: [0mPOST /api/payment/create-checkout-session [33m404[0m 155.336 ms - -[0m 
+2026-04-05 15:58:40 [[32minfo[39m]: [0mPOST /api/payment/create-checkout-session [33m404[0m 142.692 ms - -[0m 
+2026-04-05 16:00:04 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 5936.950 ms - -[0m 
+2026-04-05 16:01:40 [[32minfo[39m]: [0mPOST /api/analysis/analyze [33m403[0m 324.241 ms - 473[0m 
+2026-04-05 16:01:42 [[32minfo[39m]: [0mPOST /api/analysis/analyze [33m403[0m 419.121 ms - 473[0m 
+2026-04-05 16:01:46 [[32minfo[39m]: [0mPOST /api/analysis/analyze [33m403[0m 275.517 ms - 473[0m 
+2026-04-05 16:08:57 [[32minfo[39m]: [0mPOST /api/auth/login [31m500[0m 1188.817 ms - 492[0m 
+2026-04-05 16:09:02 [[32minfo[39m]: [0mPOST /api/auth/login [31m500[0m 1256.622 ms - 492[0m 
+2026-04-05 16:09:18 [[32minfo[39m]: [0mPOST /api/auth/register [33m400[0m 227.252 ms - 372[0m 
+2026-04-05 16:09:26 [[32minfo[39m]: [0mPOST /api/auth/login [31m500[0m 1044.195 ms - 492[0m 
+2026-04-05 16:10:05 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 16:10:07 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 16:10:16 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 16:10:17 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 16:10:43 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 1291.799 ms - 572[0m 
+2026-04-05 16:11:08 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 4150.897 ms - -[0m 
+2026-04-05 16:21:48 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 16:21:50 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 16:22:39 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 634.377 ms - 572[0m 
+2026-04-05 16:22:52 [[32minfo[39m]: [0mPOST /api/analysis/analyze [33m429[0m 1058.044 ms - 558[0m 
+2026-04-05 16:23:04 [[32minfo[39m]: [0mPOST /api/analysis/analyze [33m429[0m 931.084 ms - 558[0m 
+2026-04-05 16:23:48 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 16:23:49 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 16:30:11 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 16:30:14 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 16:30:33 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 557.541 ms - 572[0m 
+2026-04-05 16:30:53 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 4617.028 ms - -[0m 
+2026-04-05 16:31:29 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 16:31:32 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 16:31:56 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 16:31:57 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 16:32:15 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 581.505 ms - 572[0m 
+2026-04-05 16:32:38 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 4480.996 ms - -[0m 
+2026-04-05 16:33:04 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 16:33:06 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 16:33:33 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 16:33:34 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 16:33:55 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 605.027 ms - 572[0m 
+2026-04-05 16:34:12 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 3481.423 ms - -[0m 
+2026-04-05 16:35:59 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 16:36:01 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 16:36:29 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 16:36:30 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 16:36:48 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 561.001 ms - 572[0m 
+2026-04-05 16:37:47 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 3645.905 ms - -[0m 
+2026-04-05 16:38:53 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 16:38:56 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 16:39:29 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 16:39:30 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 16:39:51 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 558.393 ms - 572[0m 
+2026-04-05 16:40:37 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 4199.650 ms - -[0m 
+2026-04-05 16:41:20 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 16:41:22 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 16:42:07 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 16:42:08 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 16:42:38 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 774.179 ms - 572[0m 
+2026-04-05 16:43:23 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 4885.826 ms - -[0m 
+2026-04-05 16:45:07 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 16:45:09 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 16:45:30 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 646.918 ms - 572[0m 
+2026-04-05 16:46:16 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 4436.062 ms - -[0m 
+2026-04-05 16:49:03 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 16:49:05 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 16:50:10 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 4455.666 ms - -[0m 
+2026-04-05 16:50:59 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 516.128 ms - 572[0m 
+2026-04-05 16:52:02 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 4395.082 ms - -[0m 
+2026-04-05 16:53:15 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 16:53:17 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 16:54:33 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 4726.775 ms - -[0m 
+2026-04-05 16:59:23 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 16:59:26 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 17:04:01 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:04:02 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 17:05:39 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:05:40 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 17:06:24 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:06:27 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 17:07:24 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 5144.715 ms - -[0m 
+2026-04-05 17:07:54 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 6066.803 ms - -[0m 
+2026-04-05 17:08:58 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 4893.963 ms - -[0m 
+2026-04-05 17:12:17 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:12:18 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 17:13:39 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 4850.991 ms - -[0m 
+2026-04-05 17:15:28 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:15:31 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 17:17:30 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 5065.072 ms - -[0m 
+2026-04-05 17:18:21 [[32minfo[39m]: [0mPOST /api/export [32m201[0m 4196.689 ms - 129[0m 
+2026-04-05 17:18:22 [[32minfo[39m]: [0mGET /api/export/69d2fbcda4394a6d7fb00a60/download?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDJlOTA5OGY0NjgxNjc5MDRmZDAxOSIsInJvbGUiOiJhZG1pbiIsInBsYW4iOiJhZ2VuY3kiLCJpYXQiOjE3NzU0MzMwNTksImV4cCI6MTc3NTQzNjY1OX0.K6D33n8bgd-DLPPXu48yuGpISCwHmn71uM56rZhH3Qs [32m200[0m 421.200 ms - 456771[0m 
+2026-04-05 17:18:23 [[32minfo[39m]: [0mPOST /api/export [32m201[0m 5241.772 ms - 129[0m 
+2026-04-05 17:18:24 [[32minfo[39m]: [0mPOST /api/export [32m201[0m 5048.054 ms - 129[0m 
+2026-04-05 17:19:30 [[32minfo[39m]: [0mPOST /api/export [32m201[0m 535.825 ms - 129[0m 
+2026-04-05 17:19:30 [[32minfo[39m]: [0mGET /api/export/69d2fc12a4394a6d7fb00a74/download?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDJlOTA5OGY0NjgxNjc5MDRmZDAxOSIsInJvbGUiOiJhZG1pbiIsInBsYW4iOiJhZ2VuY3kiLCJpYXQiOjE3NzU0MzMwNTksImV4cCI6MTc3NTQzNjY1OX0.K6D33n8bgd-DLPPXu48yuGpISCwHmn71uM56rZhH3Qs [32m200[0m 396.327 ms - 108887[0m 
+2026-04-05 17:22:08 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:22:10 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 17:22:20 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:22:22 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:22:23 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 17:27:01 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:27:04 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 17:28:04 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 4529.320 ms - -[0m 
+2026-04-05 17:28:22 [[32minfo[39m]: [0mPOST /api/export [32m201[0m 6557.586 ms - 129[0m 
+2026-04-05 17:28:28 [[32minfo[39m]: [0mPOST /api/export [32m201[0m 4985.855 ms - 129[0m 
+2026-04-05 17:28:40 [[32minfo[39m]: [0mPOST /api/export [32m201[0m 5114.249 ms - 129[0m 
+2026-04-05 17:28:41 [[32minfo[39m]: [0mGET /api/export/69d2fe38c9d85f7f6591b961/download?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDJlOTA5OGY0NjgxNjc5MDRmZDAxOSIsInJvbGUiOiJhZG1pbiIsInBsYW4iOiJhZ2VuY3kiLCJpYXQiOjE3NzU0MzMwNTksImV4cCI6MTc3NTQzNjY1OX0.K6D33n8bgd-DLPPXu48yuGpISCwHmn71uM56rZhH3Qs [32m200[0m 387.412 ms - 783935[0m 
+2026-04-05 17:32:50 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:32:53 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 17:33:08 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:33:10 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 17:35:49 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:35:51 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 17:38:15 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 5028.872 ms - -[0m 
+2026-04-05 17:38:28 [[32minfo[39m]: [0mPOST /api/export [32m201[0m 6835.930 ms - 129[0m 
+2026-04-05 17:38:29 [[32minfo[39m]: [0mGET /api/export/69d30084f13ba033262a1d52/download?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDJlOTA5OGY0NjgxNjc5MDRmZDAxOSIsInJvbGUiOiJhZG1pbiIsInBsYW4iOiJhZ2VuY3kiLCJpYXQiOjE3NzU0MzMwNTksImV4cCI6MTc3NTQzNjY1OX0.K6D33n8bgd-DLPPXu48yuGpISCwHmn71uM56rZhH3Qs [32m200[0m 385.961 ms - 958662[0m 
+2026-04-05 17:39:31 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:39:44 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:39:49 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 17:40:04 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:40:06 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 17:41:50 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 5443.108 ms - -[0m 
+2026-04-05 17:42:47 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 4095.476 ms - -[0m 
+2026-04-05 17:43:08 [[32minfo[39m]: [0mPOST /api/export [32m201[0m 7712.283 ms - 129[0m 
+2026-04-05 17:43:08 [[32minfo[39m]: [0mGET /api/export/69d3019c40b42e185f447253/download?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDJlOTA5OGY0NjgxNjc5MDRmZDAxOSIsInJvbGUiOiJhZG1pbiIsInBsYW4iOiJhZ2VuY3kiLCJpYXQiOjE3NzU0MzMwNTksImV4cCI6MTc3NTQzNjY1OX0.K6D33n8bgd-DLPPXu48yuGpISCwHmn71uM56rZhH3Qs [32m200[0m 461.078 ms - 895963[0m 
+2026-04-05 17:48:16 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:48:18 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 17:50:15 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 21061.639 ms - -[0m 
+2026-04-05 17:51:02 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 12410.464 ms - -[0m 
+2026-04-05 17:52:01 [[32minfo[39m]: [0mPOST /api/auth/login [33m401[0m 304.126 ms - 383[0m 
+2026-04-05 17:52:01 [[32minfo[39m]: [0mPOST /api/auth/refresh [33m400[0m 2.963 ms - -[0m 
+2026-04-05 17:52:30 [[32minfo[39m]: [0mPOST /api/auth/login [33m401[0m 125.388 ms - 383[0m 
+2026-04-05 17:52:30 [[32minfo[39m]: [0mPOST /api/auth/refresh [33m400[0m 4.433 ms - -[0m 
+2026-04-05 17:53:49 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:53:51 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 17:53:53 [[32minfo[39m]: ✅ Admin user created: admin@smartpitch.io 
+2026-04-05 17:54:29 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 606.726 ms - 569[0m 
+2026-04-05 17:57:01 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:57:03 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 17:57:03 [[32minfo[39m]: ℹ️ Admin user admin@smartpitch.io already exists. 
+2026-04-05 17:57:40 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 9469.881 ms - -[0m 
+2026-04-05 17:59:25 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:59:27 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 17:59:28 [[32minfo[39m]: ℹ️ Admin user admin@smartpitch.io already exists. 
+2026-04-05 17:59:44 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 17:59:45 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 17:59:46 [[32minfo[39m]: ℹ️ Admin user admin@smartpitch.io already exists. 
+2026-04-05 18:01:43 [[32minfo[39m]: [0mGET /api/auth/me [32m200[0m 398.151 ms - 157[0m 
+2026-04-05 18:01:44 [[32minfo[39m]: [0mGET /api/auth/me [36m304[0m 661.352 ms - -[0m 
+2026-04-05 18:02:22 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 17733.411 ms - -[0m 
+2026-04-05 18:02:39 [[32minfo[39m]: [0mPOST /api/payment/create-checkout-session [33m404[0m 129.194 ms - -[0m 
+2026-04-05 18:02:52 [[32minfo[39m]: [0mGET /api/auth/me [36m304[0m 252.641 ms - -[0m 
+2026-04-05 18:02:52 [[32minfo[39m]: [0mGET /api/auth/me [36m304[0m 271.845 ms - -[0m 
+2026-04-05 18:03:17 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 1028.215 ms - 569[0m 
+2026-04-05 18:04:06 [[32minfo[39m]: [0mPOST /api/auth/login [33m401[0m 518.391 ms - 307[0m 
+2026-04-05 18:04:06 [[32minfo[39m]: [0mPOST /api/auth/refresh [33m400[0m 3.370 ms - -[0m 
+2026-04-05 18:04:43 [[32minfo[39m]: [0mPOST /api/auth/login [33m401[0m 604.640 ms - 307[0m 
+2026-04-05 18:04:43 [[32minfo[39m]: [0mPOST /api/auth/refresh [33m400[0m 1.218 ms - -[0m 
+2026-04-05 18:04:46 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 1026.047 ms - 572[0m 
+2026-04-05 18:05:48 [[32minfo[39m]: ℹ️ Admin user admin@smartpitch.io already exists. 
+2026-04-05 18:06:22 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 18:06:25 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 18:06:26 [[32minfo[39m]: ✅ Admin user admin@smartpitch.io updated (role and password synced). 
+2026-04-05 18:06:30 [[32minfo[39m]: ✅ Admin user admin@smartpitch.io updated (role and password synced). 
+2026-04-05 18:07:15 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 18:07:18 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 18:07:20 [[32minfo[39m]: ✅ Admin user admin@smartpitch.io updated (role and password synced). 
+2026-04-05 18:08:10 [[32minfo[39m]: [0mPOST /api/auth/login [33m401[0m 650.950 ms - 307[0m 
+2026-04-05 18:08:10 [[32minfo[39m]: [0mPOST /api/auth/refresh [33m400[0m 3.979 ms - -[0m 
+2026-04-05 18:08:14 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 1038.210 ms - 572[0m 
+2026-04-05 18:08:57 [[32minfo[39m]: [0mPOST /api/auth/login [33m401[0m 881.300 ms - 307[0m 
+2026-04-05 18:08:57 [[32minfo[39m]: [0mPOST /api/auth/refresh [33m400[0m 1.894 ms - -[0m 
+2026-04-05 18:09:05 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 1244.900 ms - 572[0m 
+2026-04-05 18:09:25 [[32minfo[39m]: [0mPOST /api/auth/register [32m201[0m 1458.793 ms - 563[0m 
+2026-04-05 18:09:34 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 1190.663 ms - 563[0m 
+2026-04-05 18:09:45 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 1299.689 ms - 563[0m 
+2026-04-05 18:09:56 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 1124.829 ms - 572[0m 
+2026-04-05 18:10:51 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 1469.688 ms - 563[0m 
+2026-04-05 18:10:55 [[32minfo[39m]: [0mPOST /api/payment/create-checkout-session [33m404[0m 177.105 ms - -[0m 
+2026-04-05 18:10:58 [[32minfo[39m]: [0mPOST /api/payment/create-checkout-session [33m404[0m 107.802 ms - -[0m 
+2026-04-05 18:11:14 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 18:11:16 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 18:11:18 [[32minfo[39m]: ✅ Admin user admin@smartpitch.io updated (role and password synced). 
+2026-04-05 18:12:39 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 18:12:41 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 18:12:42 [[32minfo[39m]: ✅ Admin user admin@smartpitch.io updated (role and password synced). 
+2026-04-05 18:13:39 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 18:13:42 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 18:13:44 [[32minfo[39m]: ✅ Admin user admin@smartpitch.io updated (role and password synced). 
+2026-04-05 18:15:26 [[32minfo[39m]: [0mGET /api/auth/me [32m200[0m 304.772 ms - 267[0m 
+2026-04-05 18:15:26 [[32minfo[39m]: [0mGET /api/auth/me [36m304[0m 409.413 ms - -[0m 
+2026-04-05 18:15:35 [[32minfo[39m]: [0mPOST /api/payment/create-checkout-session [33m404[0m 162.395 ms - -[0m 
+2026-04-05 18:15:38 [[32minfo[39m]: [0mPOST /api/payment/create-checkout-session [33m404[0m 138.224 ms - -[0m 
+2026-04-05 18:15:44 [[32minfo[39m]: [0mPOST /api/payment/create-checkout-session [33m404[0m 128.819 ms - -[0m 
+2026-04-05 18:16:23 [[32minfo[39m]: [0mPOST /api/analysis/analyze [32m200[0m 6989.721 ms - -[0m 
+2026-04-05 18:16:27 [[32minfo[39m]: [0mGET /api/analysis [32m200[0m 279.768 ms - 488[0m 
+2026-04-05 18:16:28 [[32minfo[39m]: [0mGET /api/analysis [36m304[0m 323.495 ms - -[0m 
+2026-04-05 18:16:40 [[32minfo[39m]: [0mGET /api/analysis [36m304[0m 425.612 ms - -[0m 
+2026-04-05 18:16:40 [[32minfo[39m]: [0mGET /api/analysis [36m304[0m 407.924 ms - -[0m 
+2026-04-05 18:16:42 [[32minfo[39m]: [0mGET /api/export/pdf?analysisId=69d3095583e002acad594022 [33m401[0m 4.529 ms - -[0m 
+2026-04-05 18:16:42 [[32minfo[39m]: [0mGET /favicon.ico [33m404[0m 1.484 ms - -[0m 
+2026-04-05 18:16:50 [[32minfo[39m]: [0mGET /api/export/pptx?analysisId=69d3095583e002acad594022 [33m401[0m 2.469 ms - -[0m 
+2026-04-05 18:16:56 [[32minfo[39m]: [0mDELETE /api/analysis/69d3095583e002acad594022 [32m200[0m 396.160 ms - 32[0m 
+2026-04-05 18:17:09 [[32minfo[39m]: [0mGET /api/auth/me [32m200[0m 262.835 ms - 267[0m 
+2026-04-05 18:17:09 [[32minfo[39m]: [0mGET /api/auth/me [36m304[0m 313.470 ms - -[0m 
+2026-04-05 18:17:11 [[32minfo[39m]: [0mPOST /api/auth/logout [32m200[0m 1.008 ms - 20[0m 
+2026-04-05 18:17:24 [[32minfo[39m]: [0mPOST /api/auth/login [33m401[0m 138.594 ms - 383[0m 
+2026-04-05 18:17:24 [[32minfo[39m]: [0mPOST /api/auth/refresh [33m400[0m 2.352 ms - -[0m 
+2026-04-05 18:17:27 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 1052.635 ms - 656[0m 
+2026-04-05 18:17:29 [[32minfo[39m]: [0mPOST /api/auth/logout [32m200[0m 0.671 ms - 20[0m 
+2026-04-05 18:17:35 [[32minfo[39m]: [0mPOST /api/auth/login [33m401[0m 122.815 ms - 383[0m 
+2026-04-05 18:17:35 [[32minfo[39m]: [0mPOST /api/auth/refresh [33m400[0m 2.633 ms - -[0m 
+2026-04-05 18:17:40 [[32minfo[39m]: [0mPOST /api/auth/login [33m401[0m 159.812 ms - 383[0m 
+2026-04-05 18:17:40 [[32minfo[39m]: [0mPOST /api/auth/refresh [33m400[0m 1.656 ms - -[0m 
+2026-04-05 18:18:21 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 518.777 ms - 662[0m 
+2026-04-05 18:18:22 [[32minfo[39m]: [0mGET /api/admin/users [32m200[0m 248.567 ms - 277[0m 
+2026-04-05 18:18:22 [[32minfo[39m]: [0mGET /api/admin/revenue-chart [32m200[0m 255.284 ms - 46[0m 
+2026-04-05 18:18:22 [[32minfo[39m]: [0mGET /api/admin/users [36m304[0m 241.353 ms - -[0m 
+2026-04-05 18:18:22 [[32minfo[39m]: [0mGET /api/admin/revenue-chart [36m304[0m 249.868 ms - -[0m 
+2026-04-05 18:18:22 [[32minfo[39m]: [0mGET /api/admin/stats [32m200[0m 900.394 ms - 180[0m 
+2026-04-05 18:18:23 [[32minfo[39m]: [0mGET /api/admin/stats [36m304[0m 969.263 ms - -[0m 
+2026-04-05 18:18:39 [[32minfo[39m]: [0mGET /api/admin/users [36m304[0m 255.424 ms - -[0m 
+2026-04-05 18:18:39 [[32minfo[39m]: [0mGET /api/admin/users [36m304[0m 245.671 ms - -[0m 
+2026-04-05 18:18:51 [[32minfo[39m]: [0mGET /api/admin/revenue-chart [36m304[0m 420.174 ms - -[0m 
+2026-04-05 18:18:51 [[32minfo[39m]: [0mGET /api/admin/financials [32m200[0m 425.679 ms - 43[0m 
+2026-04-05 18:18:51 [[32minfo[39m]: [0mGET /api/admin/financials [36m304[0m 400.685 ms - -[0m 
+2026-04-05 18:18:51 [[32minfo[39m]: [0mGET /api/admin/revenue-chart [36m304[0m 407.285 ms - -[0m 
+2026-04-05 18:19:00 [[32minfo[39m]: [0mGET /api/admin/revenue-chart [36m304[0m 254.128 ms - -[0m 
+2026-04-05 18:19:00 [[32minfo[39m]: [0mGET /api/admin/financials [36m304[0m 275.627 ms - -[0m 
+2026-04-05 18:19:00 [[32minfo[39m]: [0mGET /api/admin/revenue-chart [36m304[0m 423.797 ms - -[0m 
+2026-04-05 18:19:00 [[32minfo[39m]: [0mGET /api/admin/financials [36m304[0m 406.609 ms - -[0m 
+2026-04-05 18:21:29 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 18:21:33 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 18:21:35 [[32minfo[39m]: ✅ Admin user admin@smartpitch.io updated (role and password synced). 
+2026-04-05 18:23:21 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 18:23:25 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 18:23:27 [[32minfo[39m]: ✅ Admin user admin@smartpitch.io updated (role and password synced). 
+2026-04-05 18:23:38 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 18:23:40 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 18:23:42 [[32minfo[39m]: ✅ Admin user admin@smartpitch.io updated (role and password synced). 
+2026-04-05 18:23:57 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 18:23:58 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 18:24:08 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 18:24:09 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 18:24:11 [[32minfo[39m]: ✅ Admin user admin@smartpitch.io updated (role and password synced). 
+2026-04-05 18:24:58 [[32minfo[39m]: ✅ Admin user admin@smartpitch.io updated (role and password synced). 
+2026-04-05 18:25:39 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 868.280 ms - 662[0m 
+2026-04-05 18:25:40 [[32minfo[39m]: [0mGET /api/admin/revenue-chart [36m304[0m 256.719 ms - -[0m 
+2026-04-05 18:25:40 [[32minfo[39m]: [0mGET /api/admin/users [36m304[0m 274.234 ms - -[0m 
+2026-04-05 18:25:40 [[32minfo[39m]: [0mGET /api/admin/revenue-chart [36m304[0m 251.464 ms - -[0m 
+2026-04-05 18:25:40 [[32minfo[39m]: [0mGET /api/admin/stats [36m304[0m 951.630 ms - -[0m 
+2026-04-05 18:25:40 [[32minfo[39m]: [0mGET /api/admin/users [36m304[0m 667.407 ms - -[0m 
+2026-04-05 18:25:41 [[32minfo[39m]: [0mGET /api/admin/stats [36m304[0m 963.684 ms - -[0m 
+2026-04-05 18:25:53 [[32minfo[39m]: [0mGET /api/admin/users [36m304[0m 253.189 ms - -[0m 
+2026-04-05 18:25:54 [[32minfo[39m]: [0mGET /api/admin/users [36m304[0m 376.598 ms - -[0m 
+2026-04-05 18:25:55 [[32minfo[39m]: [0mGET /api/admin/revenue-chart [36m304[0m 366.583 ms - -[0m 
+2026-04-05 18:25:55 [[32minfo[39m]: [0mGET /api/admin/financials [36m304[0m 373.424 ms - -[0m 
+2026-04-05 18:25:56 [[32minfo[39m]: [0mGET /api/admin/financials [36m304[0m 298.081 ms - -[0m 
+2026-04-05 18:25:56 [[32minfo[39m]: [0mGET /api/admin/revenue-chart [36m304[0m 303.913 ms - -[0m 
+2026-04-05 18:26:01 [[32minfo[39m]: [0mGET /api/admin/revenue-chart [36m304[0m 249.891 ms - -[0m 
+2026-04-05 18:26:01 [[32minfo[39m]: [0mGET /api/admin/financials [36m304[0m 263.281 ms - -[0m 
+2026-04-05 18:26:01 [[32minfo[39m]: [0mGET /api/admin/revenue-chart [36m304[0m 229.970 ms - -[0m 
+2026-04-05 18:26:01 [[32minfo[39m]: [0mGET /api/admin/financials [36m304[0m 252.160 ms - -[0m 
+2026-04-05 18:26:12 [[32minfo[39m]: [0mPOST /api/auth/login [32m200[0m 1266.039 ms - 656[0m 
+2026-04-05 18:26:15 [[32minfo[39m]: [0mGET /api/analysis [32m200[0m 416.180 ms - 43[0m 
+2026-04-05 18:26:15 [[32minfo[39m]: [0mGET /api/analysis [36m304[0m 403.514 ms - -[0m 
+2026-04-05 18:26:24 [[32minfo[39m]: [0mPOST /api/payment/create-checkout-session [33m404[0m 137.742 ms - -[0m 
+2026-04-05 18:26:38 [[32minfo[39m]: [0mPOST /api/payment/campay/init [33m404[0m 216.757 ms - -[0m 
+2026-04-05 18:32:09 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 18:32:12 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 18:32:14 [[32minfo[39m]: ✅ Admin user admin@smartpitch.io updated (role and password synced). 
+2026-04-05 18:32:22 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 18:32:24 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 18:32:27 [[32minfo[39m]: ✅ Admin user admin@smartpitch.io updated (role and password synced). 
+2026-04-05 18:39:10 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 18:39:13 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 18:39:14 [[32minfo[39m]: ✅ Admin user admin@smartpitch.io updated (role and password synced). 
+2026-04-05 18:40:33 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-05 18:40:34 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-05 18:40:36 [[32minfo[39m]: ✅ Admin user admin@smartpitch.io updated (role and password synced). 
+2026-04-06 08:17:16 [[33mwarn[39m]: MongoDB disconnected. Attempting to reconnect... 
+2026-04-06 08:22:21 [[33mwarn[39m]: MongoDB disconnected. Attempting to reconnect... 
+2026-04-06 08:25:20 [[33mwarn[39m]: MongoDB disconnected. Attempting to reconnect... 
+2026-04-06 15:48:07 [[33mwarn[39m]: MongoDB disconnected. Attempting to reconnect... 
+2026-04-06 15:51:49 [[33mwarn[39m]: MongoDB disconnected. Attempting to reconnect... 
+2026-04-06 16:25:47 [[33mwarn[39m]: MongoDB disconnected. Attempting to reconnect... 
+2026-04-06 16:26:08 [[33mwarn[39m]: MongoDB disconnected. Attempting to reconnect... 
+2026-04-07 07:56:54 [[33mwarn[39m]: MongoDB disconnected. Attempting to reconnect... 
+2026-04-09 11:24:01 [[32minfo[39m]: 🚀 SmartPitch Backend running on port 5000 in development mode 
+2026-04-09 11:24:03 [[32minfo[39m]: ✅ MongoDB connected 
+2026-04-09 11:24:04 [[32minfo[39m]: ✅ Admin user admin@smartpitch.io updated (role and password synced). 

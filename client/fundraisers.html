@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fundraisers — KindCycle</title>
+  <meta name="description" content="Support community fundraisers on KindCycle — donate via Orange Money or MTN MoMo and help people in need reach their goals." />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <style>
+    .fundraisers-hero{background:#0B1437;padding:80px 0 60px;text-align:center;color:white}
+    .fundraisers-hero h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;margin-bottom:16px}
+    .fundraisers-hero p{font-size:1.15rem;opacity:.75;max-width:600px;margin:0 auto 32px}
+    .fundraisers-hero .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .fundraiser-filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:28px 0 8px}
+    .filter-chip{padding:7px 16px;border-radius:999px;border:1.5px solid #e5e7eb;background:white;cursor:pointer;font-size:.85rem;font-weight:500;transition:all .2s}
+    .filter-chip.active{background:#4F46E5;color:white;border-color:#4F46E5}
+    .fundraiser-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;padding:24px 0 80px}
+    .fundraiser-card{background:white;border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.07);transition:transform .25s,box-shadow .25s;border:1px solid #f1f1f1;cursor:pointer}
+    .fundraiser-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(79,70,229,.12)}
+    .fc-cover{height:200px;background:#eef2ff;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#4F46E5}
+    .fc-cover img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
+    .fc-category{position:absolute;top:12px;left:12px;background:rgba(79,70,229,.9);color:white;padding:4px 12px;border-radius:999px;font-size:.72rem;font-weight:600;letter-spacing:.04em}
+    .fc-status{position:absolute;top:12px;right:12px;padding:4px 12px;border-radius:999px;font-size:.72rem;font-weight:700}
+    .fc-status.active{background:#dcfce7;color:#15803d}
+    .fc-status.completed{background:#dbeafe;color:#1d4ed8}
+    .fc-status.closed{background:#f1f5f9;color:#64748b}
+    .fc-body{padding:20px}
+    .fc-title{font-size:1.15rem;font-weight:700;margin-bottom:8px;line-height:1.35;color:#0B1437}
+    .fc-desc{font-size:.85rem;color:#6b7280;margin-bottom:16px;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .fc-creator{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+    .fc-creator-avatar{width:28px;height:28px;border-radius:50%;background:#4F46E5;color:white;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700}
+    .fc-creator-name{font-size:.8rem;color:#374151;font-weight:500}
+    .fc-progress-wrap{margin-bottom:16px}
+    .fc-progress-bar{height:8px;background:#f3f4f6;border-radius:999px;overflow:hidden;margin-bottom:6px}
+    .fc-progress-fill{height:100%;border-radius:999px;background:#4F46E5;transition:width .8s cubic-bezier(.4,0,.2,1)}
+    .fc-progress-labels{display:flex;justify-content:space-between;font-size:.78rem;font-weight:600}
+    .fc-raised{color:#4F46E5}
+    .fc-goal{color:#9ca3af}
+    .fc-milestones{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+    .fc-milestone{padding:3px 10px;background:#f0fdf4;color:#15803d;border-radius:999px;font-size:.72rem;font-weight:500;border:1px solid #bbf7d0}
+    .fc-milestone.reached{background:#4F46E5;color:white;border-color:#4F46E5}
+    .fc-footer{display:flex;align-items:center;justify-content:space-between}
+    .fc-donors{font-size:.8rem;color:#9ca3af}
+    .btn-donate{padding:8px 20px;background:#4F46E5;color:white;border:none;border-radius:999px;font-weight:600;font-size:.85rem;cursor:pointer;transition:background .2s}
+    .btn-donate:hover{background:#4338ca}
+
+    /* Skeleton Loading */
+    @keyframes shimmer{0%{background-position:-1000px 0}100%{background-position:1000px 0}}
+    .skeleton-card{background:white;border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.05);border:1px solid #f1f1f1}
+    .skeleton-img{height:200px;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:2000px 100%;animation:shimmer 1.5s infinite linear}
+    .skeleton-body{padding:20px}
+    .skeleton-line{height:14px;border-radius:999px;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:2000px 100%;animation:shimmer 1.5s infinite linear;margin-bottom:10px}
+    .skeleton-line.short{width:55%}
+    .skeleton-line.tiny{width:35%;height:10px}
+    .skeleton-bar{height:8px;border-radius:999px;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:2000px 100%;animation:shimmer 1.5s infinite linear;margin:16px 0 8px}
+
+    /* Donate Modal */
+    .donate-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;backdrop-filter:blur(4px)}
+    .donate-modal-overlay.open{opacity:1;pointer-events:all}
+    .donate-modal{background:white;border-radius:24px;width:100%;max-width:440px;padding:24px;box-shadow:0 32px 80px rgba(0,0,0,.2);transform:translateY(20px);transition:transform .25s}
+    .donate-modal-overlay.open .donate-modal{transform:translateY(0)}
+    .dm-title{font-size:1.3rem;font-weight:800;margin-bottom:2px}
+    .dm-sub{font-size:.85rem;color:#6b7280;margin-bottom:16px}
+    .operator-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+    .operator-btn{border:2px solid #e5e7eb;border-radius:12px;padding:12px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all .2s;background:white}
+    .operator-btn:hover{border-color:#4F46E5}
+    .operator-btn.selected{border-color:#4F46E5;background:#eef2ff}
+    .operator-btn img{height:20px;margin:0}
+    .operator-btn .op-name{font-size:.875rem;font-weight:700}
+    .quick-amounts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+    .qa-btn{padding:8px 16px;border:1.5px solid #e5e7eb;border-radius:999px;background:white;cursor:pointer;font-weight:600;font-size:.85rem;transition:all .2s}
+    .qa-btn.selected{background:#4F46E5;color:white;border-color:#4F46E5}
+    .ussd-box{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:16px;margin-bottom:16px;display:none}
+    .ussd-box .ussd-code{font-size:1.5rem;font-weight:800;color:#15803d;letter-spacing:.05em}
+    .ussd-box p{font-size:.82rem;color:#166534;margin-top:6px}
+    .status-indicator{margin-bottom:16px;display:none;padding:12px;border-radius:10px;font-weight:600;font-size:.875rem;text-align:center}
+    .status-indicator.pending{background:#fef9c3;color:#854d0e}
+    .status-indicator.success{background:#dcfce7;color:#15803d}
+    .status-indicator.failed{background:#fee2e2;color:#991b1b}
+    .page-loader{text-align:center;padding:80px 0;color:#9ca3af}
+  </style>
+</head>
+<body>
+<nav class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="/" class="logo"><img src="/img/kindcycle.webp" alt="KindCycle" style="height:36px;width:auto;object-fit:contain"><span class="logo-text">KindCycle</span></a>
+    <div class="nav-links" id="nav-links"><a href="/browse.html" class="nav-link">Browse Items</a><a href="/fundraisers.html" class="nav-link" style="color:#4F46E5;font-weight:600">Fundraisers</a></div>
+    <div class="nav-actions" id="nav-actions">
+      <a href="/login.html" class="btn btn-ghost">Login</a>
+      <a href="/register.html" class="btn btn-primary">Get Started</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  </div>
+</nav>
+
+<section class="fundraisers-hero">
+  <div class="container">
+    <h1><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:text-bottom;margin-right:10px;color:rgba(255,255,255,0.9)"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>Community Fundraisers</h1>
+    <p>Support causes that matter. Every contribution moves someone closer to their goal.</p>
+    <div class="hero-btns">
+      <a href="/create-fundraiser.html" class="btn btn-primary">+ Start a Fundraiser</a>
+      <a href="/browse.html" class="btn" style="background:rgba(255,255,255,.15);color:white;border:1.5px solid rgba(255,255,255,.3)">Browse Items</a>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="fundraiser-filters" id="category-filters">
+    <span class="filter-chip active" data-cat="">All</span>
+    <span class="filter-chip" data-cat="Medical"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:4px"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> Medical</span>
+    <span class="filter-chip" data-cat="Education"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:4px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg> Education</span>
+    <span class="filter-chip" data-cat="Food & Water"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:4px"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg> Food & Water</span>
+    <span class="filter-chip" data-cat="Housing"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:4px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Housing</span>
+    <span class="filter-chip" data-cat="Emergency"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:4px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Emergency</span>
+    <span class="filter-chip" data-cat="Community"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:4px"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg> Community</span>
+    <span class="filter-chip" data-cat="Other"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:4px"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg> Other</span>
+  </div>
+  <div class="fundraiser-grid" id="fundraiser-grid">
+    <!-- Skeleton cards shown immediately while data loads -->
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-bar"></div><div class="skeleton-line tiny"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-bar"></div><div class="skeleton-line tiny"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-bar"></div><div class="skeleton-line tiny"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-bar"></div><div class="skeleton-line tiny"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-bar"></div><div class="skeleton-line tiny"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-bar"></div><div class="skeleton-line tiny"></div></div></div>
+  </div>
+</div>
+
+<!-- Donate Modal -->
+<div class="donate-modal-overlay" id="donate-modal">
+  <div class="donate-modal">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+      <div class="dm-title" id="dm-title">Donate</div>
+      <button onclick="closeDonateModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:#9ca3af;line-height:1">×</button>
+    </div>
+    <div class="dm-sub" id="dm-sub">Help this campaign reach its goal</div>
+
+    <p style="font-size:.82rem;font-weight:700;color:#374151;margin-bottom:8px">1. Choose your mobile money operator</p>
+    <div class="operator-btns">
+      <div class="operator-btn" id="op-mtn" onclick="selectOp('mtn')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/MTN_Logo.svg" alt="MTN" />
+        <div class="op-name">MTN MoMo</div>
+      </div>
+      <div class="operator-btn" id="op-orange" onclick="selectOp('orange')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Orange_logo.svg" alt="Orange" />
+        <div class="op-name">Orange Money</div>
+      </div>
+    </div>
+
+    <p style="font-size:.82rem;font-weight:700;color:#374151;margin-bottom:8px">2. Quick amounts (XAF)</p>
+    <div class="quick-amounts" id="quick-amounts">
+      <span class="qa-btn" onclick="selectAmt(500)">500</span>
+      <span class="qa-btn" onclick="selectAmt(1000)">1,000</span>
+      <span class="qa-btn" onclick="selectAmt(2500)">2,500</span>
+      <span class="qa-btn" onclick="selectAmt(5000)">5,000</span>
+      <span class="qa-btn" onclick="selectAmt(10000)">10,000</span>
+    </div>
+    <div class="form-group" style="margin-bottom:12px">
+      <input type="number" id="donate-amount" class="form-input" placeholder="Or enter amount in XAF" min="10" />
+    </div>
+
+    <p style="font-size:.82rem;font-weight:700;color:#374151;margin-bottom:6px">3. Your phone number</p>
+    <div class="form-group" style="margin-bottom:16px">
+      <input type="tel" id="donate-phone" class="form-input" placeholder="e.g. 677001122" />
+    </div>
+
+    <div class="ussd-box" id="ussd-box">
+      <div style="font-size:.8rem;color:#166534;font-weight:600;margin-bottom:4px">Dial this USSD code or use your MoMo app:</div>
+      <div class="ussd-code" id="ussd-code">*126#</div>
+      <p>Then approve the transaction on your phone to complete your donation.</p>
+    </div>
+    <div class="status-indicator" id="pay-status"></div>
+
+    <button class="btn btn-primary w-full" id="donate-btn" onclick="submitDonation()" style="margin-bottom:12px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="vertical-align:text-bottom;margin-right:6px"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg> Donate Now
+    </button>
+    <p style="font-size:.72rem;color:#9ca3af;text-align:center">Powered by Campay · Secured MoMo payment</p>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/main.js"></script>
+<script>
+let currentCategory = '';
+let currentFundraiser = null;
+let selectedOperator = '';
+let selectedAmount = 0;
+let pollInterval = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadFundraisers();
+
+  // Category filters
+  document.getElementById('category-filters').addEventListener('click', (e) => {
+    if (!e.target.classList.contains('filter-chip')) return;
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    e.target.classList.add('active');
+    currentCategory = e.target.dataset.cat;
+    loadFundraisers();
+  });
+
+  // Check anchor for specific fundraiser
+  if (window.location.hash) {
+    const id = window.location.hash.slice(1);
+    if (id) setTimeout(() => highlightFundraiser(id), 500);
+  }
+});
+
+const loadFundraisers = async () => {
+  const grid = document.getElementById('fundraiser-grid');
+  grid.innerHTML = Array(6).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-bar"></div><div class="skeleton-line tiny"></div></div></div>').join('');
+  try {
+    const url = `/fundraisers?status=active${currentCategory ? '&category=' + encodeURIComponent(currentCategory) : ''}&limit=24`;
+    const res = await api.get(url);
+    const fundraisers = res.data?.fundraisers || [];
+    if (!fundraisers.length) {
+      grid.innerHTML = '<div class="page-loader"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:6px;color:#4F46E5"><path d="m12 20-3-3"/><path d="m11 21-4-4"/><path d="M12 21a9 9 0 0 0 9-9c0-5-4-9-9-9s-9 4-9 9a9 9 0 0 0 9 9Z"/></svg> No fundraisers yet. <a href="/create-fundraiser.html" style="color:#4F46E5;font-weight:600">Start one!</a></div>';
+      return;
+    }
+    grid.innerHTML = fundraisers.map(renderFundraiserCard).join('');
+  } catch(e) {
+    grid.innerHTML = '<div class="page-loader" style="color:#ef4444">Failed to load fundraisers.</div>';
+  }
+};
+
+const renderFundraiserCard = (f) => {
+  const raised = f.raised || 0;
+  let progress = Number(((raised / f.goalAmount) * 100).toFixed(1)) || 0;
+  progress = Math.min(100, progress);
+
+  const coverContent = f.coverImage
+    ? `<img src="${f.coverImage}" alt="${f.title}" />`
+    : `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>`;
+
+  const milestoneHtml = (f.milestones || []).slice(0, 3).map(m =>
+    `<span class="fc-milestone ${m.reached ? 'reached' : ''}">${m.reached ? '✓' : ''} ${m.title}</span>`
+  ).join('');
+
+  const creatorInitial = (f.creator?.name || 'U')[0].toUpperCase();
+
+  return `
+    <div class="fundraiser-card" id="fc-${f._id}">
+      <div class="fc-cover">
+        ${coverContent}
+        <span class="fc-category">${f.category}</span>
+        <span class="fc-status ${f.status}">${f.status === 'active' ? '🟢 Active' : f.status === 'completed' ? '✅ Completed' : '🔒 Closed'}</span>
+      </div>
+      <div class="fc-body">
+        <div class="fc-title">${f.title}</div>
+        <div class="fc-desc">${f.description}</div>
+        <div class="fc-creator">
+          <div class="fc-creator-avatar">${creatorInitial}</div>
+          <div class="fc-creator-name">by ${f.creator?.name || 'Anonymous'}</div>
+        </div>
+        <div class="fc-progress-wrap">
+          <div class="fc-progress-bar"><div class="fc-progress-fill" style="width:${progress}%"></div></div>
+          <div class="fc-progress-labels">
+            <span class="fc-raised">${(f.raised || 0).toLocaleString()} XAF raised</span>
+            <span class="fc-goal">${progress}% donated</span>
+          </div>
+        </div>
+        ${milestoneHtml ? `<div class="fc-milestones">${milestoneHtml}</div>` : ''}
+        <div class="fc-footer">
+          <span class="fc-donors">👥 ${f.donorCount || 0} donor${f.donorCount !== 1 ? 's' : ''}</span>
+          ${f.status === 'active' ? (
+            (f.raised || 0) >= f.goalAmount
+            ? `<button class="btn-donate" style="background:#f59e0b;color:#fff;border:none;font-weight:800;border-radius:100px;display:inline-flex;align-items:center;cursor:default" onclick="event.stopPropagation();">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="margin-right:6px">
+                  <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706z"/>
+                </svg> Goal Achieved
+              </button>`
+            : `<button class="btn-donate" onclick="event.stopPropagation();openDonateModal(${JSON.stringify(f).replace(/"/g,'&quot;')})">💚 Donate</button>`
+          ) : '<span style="font-size:.8rem;color:#9ca3af">Closed</span>'}
+        </div>
+      </div>
+    </div>`;
+};
+
+const highlightFundraiser = (id) => {
+  const el = document.getElementById(`fc-${id}`);
+  if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.style.outline = '3px solid #4F46E5'; }
+};
+
+window.openDonateModal = (fundraiser) => {
+  if (!auth.isLoggedIn()) { showToast('Please login to donate', 'info'); window.location.href = '/login.html?next=/fundraisers.html'; return; }
+  currentFundraiser = fundraiser;
+  document.getElementById('dm-title').textContent = `Donate to: ${fundraiser.title}`;
+  document.getElementById('dm-sub').textContent = `Goal: ${fundraiser.goalAmount.toLocaleString()} XAF · Raised: ${(fundraiser.raised||0).toLocaleString()} XAF`;
+  selectedOperator = ''; selectedAmount = 0;
+  document.querySelectorAll('.operator-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.qa-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('donate-amount').value = '';
+  document.getElementById('donate-phone').value = '';
+  document.getElementById('ussd-box').style.display = 'none';
+  document.getElementById('pay-status').style.display = 'none';
+  document.getElementById('donate-btn').disabled = false;
+  document.getElementById('donate-btn').innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="vertical-align:text-bottom;margin-right:6px"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg> Donate Now';
+  document.getElementById('donate-modal').classList.add('open');
+  if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
+};
+
+window.closeDonateModal = () => {
+  document.getElementById('donate-modal').classList.remove('open');
+  if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
+};
+
+window.selectOp = (op) => {
+  selectedOperator = op;
+  document.querySelectorAll('.operator-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById(`op-${op}`).classList.add('selected');
+};
+
+window.selectAmt = (amt) => {
+  selectedAmount = amt;
+  document.querySelectorAll('.qa-btn').forEach(b => b.classList.remove('selected'));
+  event.target.classList.add('selected');
+  document.getElementById('donate-amount').value = amt;
+};
+
+document.getElementById('donate-amount')?.addEventListener('input', () => {
+  document.querySelectorAll('.qa-btn').forEach(b => b.classList.remove('selected'));
+});
+
+document.getElementById('donate-phone')?.addEventListener('input', (e) => {
+  const v = e.target.value.replace(/\D/g, '');
+  if (v.length >= 2) {
+    const p2 = v.substring(0, 2);
+    const p3 = v.substring(0, 3);
+    if (['67'].includes(p2) || ['650','651','652','653','654','680','681','682','683'].includes(p3)) {
+      selectOp('mtn');
+    } else if (['69'].includes(p2) || ['655','656','657','658','659'].includes(p3)) {
+      selectOp('orange');
+    }
+  }
+});
+
+window.submitDonation = async () => {
+  const amount = parseInt(document.getElementById('donate-amount').value) || selectedAmount;
+  const phone = document.getElementById('donate-phone').value.trim();
+  if (!selectedOperator) { showToast('Please select an operator', 'error'); return; }
+  if (!amount || amount < 10) { showToast('Minimum donation is 10 XAF', 'error'); return; }
+  if (!phone) { showToast('Please enter your phone number', 'error'); return; }
+
+  const btn = document.getElementById('donate-btn');
+  btn.disabled = true; btn.innerHTML = '<div class="spinner spinner-sm" style="display:inline-block;margin-right:8px"></div> Processing...';
+
+  try {
+    const res = await api.post('/payments/initiate', {
+      amount, phoneNumber: phone, operator: selectedOperator,
+      type: 'fundraiser_contribution', fundraiserId: currentFundraiser._id,
+      description: `Donation to "${currentFundraiser.title}"`,
+    });
+
+    const { ussdCode, campayRef } = res.data;
+    if (ussdCode) {
+      document.getElementById('ussd-code').textContent = ussdCode;
+      document.getElementById('ussd-box').style.display = 'block';
+    }
+
+    const statusEl = document.getElementById('pay-status');
+    statusEl.style.display = 'block';
+    statusEl.className = 'status-indicator pending';
+    
+    // Operator specific instructions
+    let ussdInstructions = 'Waiting for payment approval...';
+    if (selectedOperator === 'orange') {
+      ussdInstructions = 'Dial *150*50# to approve the payment if the prompt does not appear.';
+    } else if (selectedOperator === 'mtn') {
+      ussdInstructions = 'Dial *126# to approve the payment if the prompt does not appear.';
+    }
+
+    statusEl.innerHTML = `<div style="margin-bottom:6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:6px;animation:spin 2s linear infinite"><circle cx="12" cy="12" r="10"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg> ${ussdInstructions}</div>`;
+    btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:6px;animation:spin 2s linear infinite"><circle cx="12" cy="12" r="10"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg> Waiting...`;
+    if (!document.getElementById('svg-spin')) {
+      const style = document.createElement('style');
+      style.id = 'svg-spin';
+      style.innerHTML = '@keyframes spin { 100% { transform: rotate(360deg); } }';
+      document.head.appendChild(style);
+    }
+
+    // Poll for status every 5s for up to 2 minutes
+    let polls = 0;
+    pollInterval = setInterval(async () => {
+      polls++;
+      if (polls > 24) { clearInterval(pollInterval); statusEl.textContent = 'Timed out. Check your MoMo app.'; return; }
+      try {
+        const st = await api.get(`/payments/status/${campayRef}`);
+        if (st.data?.status === 'successful') {
+          clearInterval(pollInterval);
+          statusEl.className = 'status-indicator success';
+          statusEl.textContent = 'Donation successful! Thank you!';
+          btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:4px"><path d="M20 6 9 17l-5-5"/></svg> Done';
+          loadFundraisers(); // refresh progress
+        } else if (st.data?.status === 'failed' || st.data?.status === 'cancelled') {
+          clearInterval(pollInterval);
+          statusEl.className = 'status-indicator failed';
+          statusEl.textContent = 'Payment failed. Please try again.';
+          btn.disabled = false; btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:6px"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg> Try Again';
+        }
+      } catch { /* retry */ }
+    }, 5000);
+
+  } catch(err) {
+    showToast(err.message, 'error');
+    btn.disabled = false; btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:6px"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg> Donate Now';
+  }
+};
+
+document.getElementById('donate-modal')?.addEventListener('click', (e) => {
+  if (e.target === document.getElementById('donate-modal')) closeDonateModal();
+});
+</script>
+</body>
+</html>

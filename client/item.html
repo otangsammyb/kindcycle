@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Item Detail — KindCycle</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+<nav class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="/" class="logo"><img src="/img/kindcycle.webp" alt="KindCycle" style="height:36px;width:auto;object-fit:contain"><span class="logo-text">KindCycle</span></a>
+    <div class="nav-links" id="nav-links"><a href="/browse.html" class="nav-link">Browse Items</a></div>
+    <div class="nav-actions" id="nav-actions">
+      <a href="/login.html" class="btn btn-ghost">Login</a>
+      <a href="/register.html" class="btn btn-primary">Get Started</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  </div>
+</nav>
+
+<div class="item-detail-page" id="item-page" style="padding-bottom:80px">
+  <div class="container">
+    <div id="loading-state" style="text-align:center;padding:120px 0">
+      <div class="spinner" style="margin:0 auto"></div>
+    </div>
+    <div id="item-content" style="display:none">
+      <div class="item-detail-layout">
+        <!-- Gallery -->
+        <div class="gallery" id="gallery">
+          <div class="gallery-main" id="gallery-main">
+            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:5rem" id="gallery-placeholder"></div>
+          </div>
+          <div class="gallery-thumbs" id="gallery-thumbs"></div>
+        </div>
+
+        <!-- Info -->
+        <div class="item-info">
+          <div class="item-breadcrumb">
+            <a href="/browse.html">Browse</a>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+            <span id="item-category-bc">Category</span>
+          </div>
+          <h1 class="item-detail-title" id="item-title">Loading...</h1>
+          <div class="item-tags" id="item-tags"></div>
+          <p class="item-description" id="item-description"></p>
+
+          <div class="item-specs" id="item-specs">
+            <div class="spec-item"><div class="spec-label">Condition</div><div class="spec-value" id="spec-condition">—</div></div>
+            <div class="spec-item"><div class="spec-label">Delivery</div><div class="spec-value" id="spec-delivery">—</div></div>
+            <div class="spec-item"><div class="spec-label">Location</div><div class="spec-value" id="spec-location">—</div></div>
+            <div class="spec-item"><div class="spec-label">Posted</div><div class="spec-value" id="spec-date">—</div></div>
+          </div>
+
+          <!-- Reactions -->
+          <div>
+            <div style="font-size:.85rem;font-weight:600;color:var(--color-text-muted);margin-bottom:10px">React to this item</div>
+            <div class="reactions-bar" id="reactions-bar">
+              <button class="reaction-btn" data-emoji="👍"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg> <span class="count" id="count-like">0</span></button>
+              <button class="reaction-btn" data-emoji="❤️"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> <span class="count" id="count-love">0</span></button>
+              <button class="reaction-btn" data-emoji="👏"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 11V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/><path d="M14 11h4l-4-4"/></svg> <span class="count" id="count-clap">0</span></button>
+              <button class="reaction-btn" data-emoji="🌟"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> <span class="count" id="count-star">0</span></button>
+              <button class="reaction-btn" data-emoji="💡"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6m-3-3v3m-3-8h6m-9 3a9 9 0 1 1 18 0c0 2.5-1.5 4.5-4 5.5v2a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2c-2.5-1-4-3-4-5.5z"/></svg> <span class="count" id="count-idea">0</span></button>
+              <button class="reaction-btn" data-emoji="🎁"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10H2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4zM12 10V4M12 10H7M12 10h5"/></svg> <span class="count" id="count-gift">0</span></button>
+            </div>
+          </div>
+
+          <!-- Request Card -->
+          <div class="request-card" id="request-card">
+            <h3>Request this Item</h3>
+            <div class="giver-profile" id="giver-profile">
+              <div class="giver-avatar" style="width:48px;height:48px;border-radius:50%;background:var(--color-primary);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.2rem" id="giver-avatar-text">?</div>
+              <div class="giver-info">
+                <div class="name" id="giver-name">Loading...</div>
+                <div class="giver-avatar" id="giver-avatar"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                <div class="meta" id="giver-meta"></div>
+              </div>
+              <a id="giver-link" href="#" class="btn btn-sm btn-outline" style="display:flex;align-items:center;gap:6px">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                Message
+              </a>
+            </div>
+            <div id="request-area">
+              <!-- Filled by JS based on auth state -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reviews & Likes -->
+      <div style="margin-top:56px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+          <h2 style="font-size:1.5rem;margin:0">Item Reviews</h2>
+          <button id="like-btn" style="display:flex;align-items:center;gap:8px;padding:10px 20px;border:2px solid #e5e7eb;border-radius:999px;background:white;cursor:pointer;font-weight:600;font-size:.95rem;transition:all .2s" onclick="toggleLike()">
+            <svg id="like-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <span id="like-count">0</span> Likes
+          </button>
+        </div>
+        <div id="reviews-list" style="display:flex;flex-direction:column;gap:16px;margin-bottom:24px">
+          <div style="color:var(--color-text-muted);font-size:.9rem">Loading reviews...</div>
+        </div>
+
+        <div id="add-review-section" style="display:none;padding:28px;background:var(--color-bg-alt);border-radius:var(--radius-xl);border:1px solid var(--color-border-light)">
+          <h3 style="margin-bottom:16px;font-size:1.15rem">⭐ Leave a Review for this Listing</h3>
+          <form id="review-form">
+            <div style="display:flex;gap:8px;margin-bottom:16px" id="star-rating">
+              <button type="button" class="btn btn-sm btn-outline star-btn" data-val="1" style="font-size:1.3rem">★</button>
+              <button type="button" class="btn btn-sm btn-outline star-btn" data-val="2" style="font-size:1.3rem">★</button>
+              <button type="button" class="btn btn-sm btn-outline star-btn" data-val="3" style="font-size:1.3rem">★</button>
+              <button type="button" class="btn btn-sm btn-outline star-btn" data-val="4" style="font-size:1.3rem">★</button>
+              <button type="button" class="btn btn-sm btn-outline star-btn" data-val="5" style="font-size:1.3rem">★</button>
+            </div>
+            <textarea id="review-comment" class="form-textarea" placeholder="Share your experience with this giver and item..." rows="3" style="margin-bottom:16px"></textarea>
+            <button type="submit" class="btn btn-primary" id="submit-review-btn">Submit Review</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="error-state" style="display:none;text-align:center;padding:120px 0">
+      <div style="font-size:4rem;margin-bottom:16px">🔍</div>
+      <h2>Item not found</h2>
+      <p style="color:var(--color-text-muted);margin-bottom:24px">This item may have been removed or is no longer available.</p>
+      <a href="/browse.html" class="btn btn-primary">Browse other items</a>
+    </div>
+  </div>
+</div>
+
+<!-- Request Modal -->
+<div class="modal-overlay" id="request-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Request this Item</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <form id="request-form">
+      <div class="form-group" style="margin-bottom:16px">
+        <label class="form-label">Why do you need this item? <span>*</span></label>
+        <textarea class="form-textarea" id="justification" placeholder="Please explain briefly why you need this item. The giver will read your request before deciding." required></textarea>
+      </div>
+      <div class="form-group" style="margin-bottom:16px">
+        <label class="form-label">Preferred delivery method</label>
+        <select class="form-select" id="preferred-delivery">
+          <option value="pickup">Pickup (I will collect)</option>
+          <option value="delivery">Delivery (Arrange with giver)</option>
+        </select>
+      </div>
+      <div id="request-error" class="form-error hidden" style="margin-bottom:12px"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="submit-request-btn">Submit Request</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/main.js"></script>
+<script>
+let currentItemId = null;
+let currentGiverId = null;
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const params = new URLSearchParams(window.location.search);
+  currentItemId = params.get('id');
+  if (!currentItemId) { showError(); return; }
+
+  try {
+    const res = await api.get(`/items/${currentItemId}`);
+    const item = res.data;
+    document.title = `${item.title} — KindCycle`;
+    currentGiverId = item.giver._id;
+    renderItem(item);
+    loadReactions();
+    loadItemReviews();
+    checkShowReviewForm();
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('item-content').style.display = 'block';
+  } catch(e) { showError(); }
+});
+
+const showError = () => {
+  document.getElementById('loading-state').style.display = 'none';
+  document.getElementById('error-state').style.display = 'block';
+};
+
+const renderItem = (item) => {
+  // Gallery
+  if (item.images?.length) {
+    const mainImg = document.createElement('img');
+    mainImg.src = `http://localhost:5000${item.images[0].url}`;
+    mainImg.alt = item.title;
+    mainImg.style.cssText = 'width:100%;height:100%;object-fit:cover';
+    document.getElementById('gallery-main').innerHTML = '';
+    document.getElementById('gallery-main').appendChild(mainImg);
+    item.images.forEach((img, i) => {
+      const thumb = document.createElement('div');
+      thumb.className = 'gallery-thumb' + (i === 0 ? ' active' : '');
+      thumb.innerHTML = `<img src="http://localhost:5000${img.url}" alt="${item.title}" style="width:100%;height:100%;object-fit:cover" />`;
+      thumb.addEventListener('click', () => {
+        mainImg.src = `http://localhost:5000${img.url}`;
+        document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+      });
+      document.getElementById('gallery-thumbs').appendChild(thumb);
+    });
+  } else {
+    document.getElementById('gallery-placeholder').innerHTML = getEmojiForCategory(item.category, 64);
+  }
+
+  document.getElementById('item-title').textContent = item.title;
+  document.getElementById('item-category-bc').textContent = item.category;
+  document.getElementById('item-description').textContent = item.description;
+  document.getElementById('spec-condition').innerHTML = getConditionLabel(item.condition);
+  document.getElementById('spec-delivery').innerHTML = { 
+    pickup: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:4px"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Pickup', 
+    delivery: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:4px"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Delivery', 
+    both: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:4px"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg> Both' 
+  }[item.deliveryMethod] || item.deliveryMethod;
+  document.getElementById('spec-location').textContent = item.location?.city || 'Nearby';
+  document.getElementById('spec-date').textContent = new Date(item.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+  if (item.tags?.length) {
+    document.getElementById('item-tags').innerHTML = item.tags.map(t => `<span class="item-tag"># ${t}</span>`).join('');
+  }
+
+  // Giver
+  const giverInitial = (item.giver?.name || 'U')[0].toUpperCase();
+  document.getElementById('giver-avatar-text').textContent = giverInitial;
+  document.getElementById('giver-name').textContent = item.giver?.name || 'Anonymous';
+  document.getElementById('giver-link').href = `/chat.html?user=${item.giver._id}&item=${currentItemId}`;
+  const stars = '★'.repeat(Math.round(item.giver?.trustScore / 20)) + '☆'.repeat(5 - Math.round(item.giver?.trustScore / 20));
+  document.getElementById('giver-meta').innerHTML = `
+    <span class="trust-stars">${stars}</span> ${item.giver?.reviewCount || 0} reviews
+    ${item.giver?.idVerified ? '<span style="color:var(--color-accent);font-weight:700;margin-left:8px">✓ Verified</span>' : ''}
+  `;
+
+  // Request area
+  renderRequestArea(item);
+};
+
+const renderRequestArea = (item) => {
+  const area = document.getElementById('request-area');
+  if (item.status === 'given') {
+    area.innerHTML = `<div style="text-align:center;padding:20px;background:var(--color-bg-alt);border-radius:var(--radius-md)">
+      <div style="font-size:2rem">✅</div><p style="color:var(--color-text-muted)">This item has already been given.</p>
+    </div>`;
+    return;
+  }
+  if (item.status === 'reserved') {
+    area.innerHTML = `<div style="text-align:center;padding:20px;background:var(--color-bg-alt);border-radius:var(--radius-md)">
+      <div style="font-size:2rem">🔒</div><p style="color:var(--color-text-muted)">This item is reserved for a receiver.</p>
+    </div>`;
+    return;
+  }
+  if (!auth.isLoggedIn()) {
+    area.innerHTML = `<div style="text-align:center">
+      <p style="color:var(--color-text-muted);margin-bottom:16px">Log in to request this item</p>
+      <a href="/login.html?next=/item.html?id=${currentItemId}" class="btn btn-primary w-full">Login to Request</a>
+    </div>`;
+    return;
+  }
+  const user = auth.getUser();
+  if (user._id === item.giver?._id) {
+    area.innerHTML = `<div style="text-align:center;padding:16px;color:var(--color-text-muted)">This is your item.</div>`;
+    return;
+  }
+  if (user.role === 'giver') {
+    area.innerHTML = `<div style="text-align:center;padding:16px;color:var(--color-text-muted)">Only receivers can request items.</div>`;
+    return;
+  }
+  area.innerHTML = `<button class="btn btn-primary w-full btn-lg" onclick="openModal()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    I Need This Item
+  </button>`;
+};
+
+// Load reactions (likes / emojis)
+const loadReactions = async () => {
+  try {
+    const res = await api.get(`/reactions/${currentItemId}`);
+    const { reactions, myReaction } = res.data;
+    const countMap = {};
+    reactions.forEach(r => { countMap[r.emoji] = r.count; });
+    // Update heart like count from reactions
+    const heartCount = countMap['❤️'] || 0;
+    document.getElementById('like-count').textContent = heartCount;
+    if (myReaction === '❤️') {
+      const btn = document.getElementById('like-btn');
+      if (btn) { btn.style.borderColor = '#ef4444'; btn.style.background = '#fff0f0'; }
+      document.getElementById('like-icon')?.setAttribute('fill', '#ef4444');
+    }
+
+    document.querySelectorAll('.reaction-btn').forEach(btn => {
+      const emoji = btn.dataset.emoji;
+      const countEl = btn.querySelector('.count') || btn.querySelector('.react-count');
+      if (countEl) countEl.textContent = countMap[emoji] || 0;
+      if (myReaction === emoji) btn.classList.add('active');
+      btn.addEventListener('click', async () => {
+        if (!auth.isLoggedIn()) { showToast('Login to react to items', 'info'); return; }
+        try {
+          const r = await api.post('/reactions', { itemId: currentItemId, emoji });
+          if (r.action === 'removed') { btn.classList.remove('active'); if (countEl) countEl.textContent = Math.max(0, parseInt(countEl.textContent) - 1); }
+          else { btn.classList.add('active'); if (countEl) countEl.textContent = parseInt(countEl.textContent || 0) + 1; }
+        } catch(e) { showToast(e.message, 'error'); }
+      });
+    });
+  } catch(e) { /* non-fatal */ }
+};
+
+// Toggle heart like
+window.toggleLike = async () => {
+  if (!auth.isLoggedIn()) { showToast('Login to like items', 'info'); return; }
+  try {
+    const r = await api.post('/reactions', { itemId: currentItemId, emoji: '❤️' });
+    const countEl = document.getElementById('like-count');
+    const btn = document.getElementById('like-btn');
+    const icon = document.getElementById('like-icon');
+    if (r.action === 'removed') {
+      countEl.textContent = Math.max(0, parseInt(countEl.textContent) - 1);
+      btn.style.borderColor = '#e5e7eb'; btn.style.background = 'white';
+      icon?.setAttribute('fill', 'none');
+    } else {
+      countEl.textContent = parseInt(countEl.textContent || 0) + 1;
+      btn.style.borderColor = '#ef4444'; btn.style.background = '#fff0f0';
+      icon?.setAttribute('fill', '#ef4444');
+    }
+  } catch(e) { showToast(e.message, 'error'); }
+};
+
+// Load item-level reviews
+const loadItemReviews = async () => {
+  try {
+    const res = await api.get(`/reviews/item/${currentItemId}`);
+    const list = document.getElementById('reviews-list');
+    const { reviews, averageRating, total } = res.data;
+    if (!reviews.length) {
+      list.innerHTML = `<div style="color:var(--color-text-muted)">No reviews for this listing yet. Be the first!</div>`;
+      return;
+    }
+    const stars = n => '★'.repeat(n) + '☆'.repeat(5 - n);
+    list.innerHTML = `<div style="display:flex;align-items:center;gap:12px;padding:16px;background:linear-gradient(135deg,#fef9ee,#fff);border-radius:12px;border:1px solid #fde68a;margin-bottom:8px">
+      <div style="font-size:2.5rem;font-weight:800;color:#f59e0b">${averageRating.toFixed(1)}</div>
+      <div><div style="color:#f59e0b;font-size:1.3rem">${stars(Math.round(averageRating))}</div><div style="font-size:.82rem;color:#9ca3af">${total} review${total !== 1 ? 's' : ''}</div></div></div>` +
+    reviews.map(r => `
+      <div style="background:white;border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:20px">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="width:40px;height:40px;border-radius:50%;background:var(--color-primary);color:white;display:flex;align-items:center;justify-content:center;font-weight:700">${(r.reviewer?.name||'U')[0]}</div>
+          <div>
+            <div style="font-weight:700">${r.reviewer?.name || 'Anonymous'}</div>
+            <div style="color:#f59e0b;font-size:1rem">${stars(r.rating)}</div>
+          </div>
+          <div style="margin-left:auto;font-size:.78rem;color:var(--color-text-muted)">${new Date(r.createdAt).toLocaleDateString()}</div>
+        </div>
+        ${r.comment ? `<p style="color:var(--color-text-secondary);font-size:.9rem">${r.comment}</p>` : ''}
+      </div>
+    `).join('');
+  } catch(e) { /* non-fatal */ }
+};
+
+const checkShowReviewForm = async () => {
+  if (!auth.isLoggedIn()) return;
+  const user = auth.getUser();
+  // Only logged-in users who are not the giver can review
+  if (user._id === currentGiverId || user._id === currentGiverId?.toString()) return;
+  try {
+    const res = await api.get(`/reviews/mine/for-item/${currentItemId}`);
+    if (!res.data) { // No existing review — show form
+      document.getElementById('add-review-section').style.display = 'block';
+    }
+  } catch { document.getElementById('add-review-section').style.display = 'block'; }
+};
+
+window.openModal = () => { document.getElementById('request-modal').classList.add('open'); };
+window.closeModal = () => { document.getElementById('request-modal').classList.remove('open'); };
+
+document.getElementById('request-form')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const errorEl = document.getElementById('request-error');
+  const btn = document.getElementById('submit-request-btn');
+  errorEl.classList.add('hidden');
+  const justification = document.getElementById('justification').value.trim();
+  const preferredDelivery = document.getElementById('preferred-delivery').value;
+  if (!justification) { errorEl.textContent = 'Please explain why you need this item'; errorEl.classList.remove('hidden'); return; }
+
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner spinner-sm"></div> Submitting...';
+  try {
+    await api.post('/requests', { itemId: currentItemId, justification, preferredDelivery });
+    closeModal();
+    showToast('Request submitted! The giver will review it. 🙏', 'success');
+    document.getElementById('request-area').innerHTML = `<div style="text-align:center;padding:16px;color:var(--color-accent);font-weight:600">✅ Request submitted — awaiting response</div>`;
+  } catch(e) {
+    errorEl.textContent = e.message;
+    errorEl.classList.remove('hidden');
+    btn.disabled = false;
+    btn.textContent = 'Submit Request';
+  }
+});
+
+
+// Review form handling
+let selectedRating = 0;
+document.querySelectorAll('.star-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    selectedRating = parseInt(e.target.dataset.val);
+    document.querySelectorAll('.star-btn').forEach(b => {
+      if(parseInt(b.dataset.val) <= selectedRating) b.style.background = 'var(--color-primary)', b.style.color = 'white';
+      else b.style.background = 'transparent', b.style.color = 'var(--color-text)';
+    });
+  });
+});
+
+document.getElementById('review-form')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (!selectedRating) return showToast('Please select a star rating', 'error');
+  const comment = document.getElementById('review-comment').value.trim();
+  const btn = document.getElementById('submit-review-btn');
+  btn.disabled = true; btn.textContent = 'Submitting...';
+  try {
+    // Item-level review — no request required
+    await api.post('/reviews', { revieweeId: currentGiverId, itemId: currentItemId, rating: selectedRating, comment });
+    showToast('Review submitted! Thank you. ⭐', 'success');
+    document.getElementById('add-review-section').style.display = 'none';
+    loadItemReviews();
+  } catch(err) {
+    showToast(err.message, 'error');
+    btn.disabled = false; btn.textContent = 'Submit Review';
+  }
+});
+
+// Close modal on overlay click
+document.getElementById('request-modal')?.addEventListener('click', (e) => { if (e.target === e.currentTarget) closeModal(); });
+</script>
+</body>
+</html>

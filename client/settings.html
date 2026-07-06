@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Settings — KindCycle</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/main.css"/>
+</head>
+<body>
+<nav class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="/" class="logo"><img src="/img/kindcycle.webp" alt="KindCycle" style="height:36px;width:auto;object-fit:contain"><span class="logo-text">KindCycle</span></a>
+    <div class="nav-actions" id="nav-actions"></div>
+  </div>
+</nav>
+
+<div class="settings-page">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+    <a href="/" id="back-link" class="btn btn-ghost btn-sm">← Back</a>
+    <h1 style="font-size:1.8rem">Account Settings</h1>
+  </div>
+  <p style="color:var(--color-text-muted);margin-bottom:0">Manage profile, security, verification, location and notifications.</p>
+
+  <div class="settings-tabs">
+    <div class="settings-tab active" data-tab="profile">Profile</div>
+    <div class="settings-tab" data-tab="security">Security</div>
+    <div class="settings-tab" data-tab="id-scan">ID Verification</div>
+    <div class="settings-tab" data-tab="location">Location</div>
+    <div class="settings-tab" data-tab="notifications">Notifications</div>
+    <div class="settings-tab" data-tab="danger">Account</div>
+  </div>
+
+  <!-- Profile -->
+  <div class="settings-section active" id="section-profile">
+    <div class="settings-card">
+      <h3>Personal Information</h3>
+      <p class="desc">How the community sees you.</p>
+      <form id="profile-form" style="display:flex;flex-direction:column;gap:16px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div class="form-group"><label class="form-label">Full Name</label><input type="text" class="form-input" id="prof-name"/></div>
+          <div class="form-group"><label class="form-label">Phone</label><input type="tel" class="form-input" id="prof-phone" placeholder="+237 6XX XXX XXX"/></div>
+        </div>
+        <div class="form-group"><label class="form-label">Bio</label><textarea class="form-textarea" id="prof-bio" style="min-height:80px" placeholder="Tell the community about yourself..."></textarea></div>
+        <div class="settings-actions"><button type="submit" class="btn btn-primary" id="profile-save-btn">Save Changes</button></div>
+      </form>
+    </div>
+    <div class="settings-card">
+      <h3>Account Status</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+        <div style="background:var(--color-bg-alt);border-radius:var(--radius-lg);padding:16px;text-align:center">
+          <div style="font-size:1.5rem;margin-bottom:4px" id="status-verified-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20L17 17"/></svg></div>
+          <div style="font-weight:700;font-size:.875rem" id="status-verified-text">Unverified</div>
+          <div style="font-size:.75rem;color:var(--color-text-muted)">ID Status</div>
+        </div>
+        <div style="background:var(--color-bg-alt);border-radius:var(--radius-lg);padding:16px;text-align:center">
+          <div style="font-size:1.5rem;margin-bottom:4px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg></div>
+          <div style="font-weight:700;font-size:.875rem" id="status-trust">0/100</div>
+          <div style="font-size:.75rem;color:var(--color-text-muted)">Trust Score</div>
+        </div>
+        <div style="background:var(--color-bg-alt);border-radius:var(--radius-lg);padding:16px;text-align:center">
+          <div style="font-size:1.5rem;margin-bottom:4px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 10H16M8 14H13M21 12C21 16.9706 16.9706 21 12 21C10.5227 21 9.1216 20.6558 7.875 20.035L3 21L4.035 16.125C3.4142 14.8784 3 13.5227 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"/></svg></div>
+          <div style="font-weight:700;font-size:.875rem" id="status-reviews">0</div>
+          <div style="font-size:.75rem;color:var(--color-text-muted)">Reviews</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Security -->
+  <div class="settings-section" id="section-security">
+    <div class="settings-card">
+      <h3>Change Password</h3>
+      <p class="desc">Keep your account secure.</p>
+      <form id="password-form" style="display:flex;flex-direction:column;gap:16px">
+        <div class="form-group"><label class="form-label">Current Password</label><input type="password" class="form-input" id="curr-pw" placeholder="••••••••"/></div>
+        <div class="form-group"><label class="form-label">New Password</label><input type="password" class="form-input" id="new-pw" placeholder="Min. 8 characters"/></div>
+        <div class="form-group"><label class="form-label">Confirm New Password</label><input type="password" class="form-input" id="confirm-pw" placeholder="••••••••"/></div>
+        <div id="pw-error" class="form-error hidden"></div>
+        <div class="settings-actions"><button type="submit" class="btn btn-primary" id="pw-save-btn">Update Password</button></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ID Scan -->
+  <div class="settings-section" id="section-id-scan">
+    <div class="settings-card">
+      <h3>Identity Verification</h3>
+      <p class="desc">Upload a government-issued ID. Stored encrypted, reviewed by admins only.</p>
+      <div id="id-status-banner" style="padding:14px 18px;border-radius:var(--radius-md);margin-bottom:20px;font-weight:600;font-size:.875rem;background:#fef3c7;color:#92400e"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Not yet verified — upload your ID for review.</div>
+      <form id="id-form">
+        <div class="upload-area" style="margin-bottom:16px">
+          <input type="file" id="id-scan-file" accept="image/*,.pdf"/>
+          <div class="upload-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 10h10M7 14h6"/></svg></div>
+          <div class="upload-text"><strong>Click to upload</strong> your ID<br/><span style="font-size:.75rem;color:var(--color-text-muted)">Passport, National ID, Driver's License</span></div>
+        </div>
+        <div id="id-preview" class="hidden" style="font-size:.875rem;color:var(--color-accent);margin-bottom:12px"></div>
+        <div id="id-error" class="form-error hidden" style="margin-bottom:12px"></div>
+        <button type="submit" class="btn btn-primary" id="id-submit-btn">Upload ID</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Location -->
+  <div class="settings-section" id="section-location">
+    <div class="settings-card">
+      <h3>Your Location</h3>
+      <p class="desc">Set your location to find nearby items and givers.</p>
+      <div style="background:var(--color-bg-alt);border-radius:var(--radius-lg);padding:14px;margin-bottom:20px;font-size:.9rem" id="current-location-text">No location set</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+        <button class="btn btn-primary" id="detect-location-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Detect My Location</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+        <div class="form-group"><label class="form-label">City</label><input type="text" class="form-input" id="loc-city" placeholder="e.g. Douala"/></div>
+        <div class="form-group"><label class="form-label">Country</label><input type="text" class="form-input" id="loc-country" placeholder="e.g. Cameroon"/></div>
+      </div>
+      <input type="hidden" id="loc-lat"/><input type="hidden" id="loc-lng"/>
+      <button class="btn btn-primary" id="save-location-btn">Save Location</button>
+    </div>
+  </div>
+
+  <!-- Notifications -->
+  <div class="settings-section" id="section-notifications">
+    <div class="settings-card">
+      <h3>Notification Preferences</h3>
+      <p class="desc">Choose what you want to be notified about.</p>
+      <div class="toggle-row">
+        <div><div class="toggle-label">Email Notifications</div><div class="toggle-desc">Receive updates via email</div></div>
+        <label class="toggle-switch"><input type="checkbox" id="email-notif" checked/><span class="toggle-slider"></span></label>
+      </div>
+      <div class="toggle-row">
+        <div><div class="toggle-label">Request Alerts</div><div class="toggle-desc">Get notified when someone requests your item</div></div>
+        <label class="toggle-switch"><input type="checkbox" id="push-notif" checked/><span class="toggle-slider"></span></label>
+      </div>
+      <div class="settings-actions" style="margin-top:16px"><button class="btn btn-primary" id="notif-save-btn">Save Preferences</button></div>
+    </div>
+  </div>
+
+  <!-- Danger Zone -->
+  <div class="settings-section" id="section-danger">
+    <div class="settings-card danger-zone">
+      <h3>Deactivate Account</h3>
+      <p class="desc">Temporarily disable your account.</p>
+      <button class="btn btn-danger" id="deactivate-btn">Deactivate Account</button>
+    </div>
+    <div class="settings-card" style="margin-top:16px">
+      <h3>Logout Everywhere</h3>
+      <p class="desc">Sign out from all devices and sessions.</p>
+      <button class="btn btn-outline" onclick="handleLogout()">Logout</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  if (!auth.requireAuth()) return;
+  const user = auth.getUser();
+  document.getElementById('back-link').href = getDashboardLink(user.role);
+  document.getElementById('prof-name').value = user.name||'';
+  document.getElementById('prof-phone').value = user.phone||'';
+  document.getElementById('prof-bio').value = user.bio||'';
+  document.getElementById('status-trust').textContent = `${user.trustScore||0}/100`;
+  document.getElementById('status-reviews').textContent = user.reviewCount||0;
+  if (user.idVerified) {
+    document.getElementById('status-verified-icon').innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>';
+    document.getElementById('status-verified-text').textContent = 'Verified';
+    document.getElementById('id-status-banner').innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:4px"><path d="M20 6 9 17l-5-5"/></svg> Your ID has been verified!';
+    document.getElementById('id-status-banner').style.background = '#d1fae5';
+    document.getElementById('id-status-banner').style.color = '#065f46';
+  }
+  if (user.location?.city) { document.getElementById('current-location-text').innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:4px"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> ${user.location.city}, ${user.location.country||''}`; }
+  document.getElementById('loc-city').value = user.location?.city||'';
+  document.getElementById('loc-country').value = user.location?.country||'';
+  document.getElementById('email-notif').checked = user.emailNotifications !== false;
+  document.getElementById('push-notif').checked = user.pushNotifications !== false;
+
+  // Tabs
+  document.querySelectorAll('.settings-tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.settings-tab').forEach(x=>x.classList.remove('active'));
+      document.querySelectorAll('.settings-section').forEach(s=>s.classList.remove('active'));
+      t.classList.add('active');
+      document.getElementById(`section-${t.dataset.tab}`)?.classList.add('active');
+    });
+  });
+  const hash = window.location.hash.replace('#','');
+  if (hash) document.querySelector(`.settings-tab[data-tab="${hash}"]`)?.click();
+
+  document.getElementById('profile-form').addEventListener('submit', async (e) => {
+    e.preventDefault(); const btn=document.getElementById('profile-save-btn'); btn.disabled=true; btn.textContent='Saving...';
+    try { const r=await api.patch('/users/me',{name:document.getElementById('prof-name').value,phone:document.getElementById('prof-phone').value,bio:document.getElementById('prof-bio').value}); localStorage.setItem('kc_user',JSON.stringify(r.data)); showToast('Profile updated','success'); } catch(e){showToast(e.message,'error');}
+    btn.disabled=false; btn.textContent='Save Changes';
+  });
+
+  document.getElementById('password-form').addEventListener('submit', async (e) => {
+    e.preventDefault(); const errEl=document.getElementById('pw-error'); errEl.classList.add('hidden');
+    const curr=document.getElementById('curr-pw').value, nw=document.getElementById('new-pw').value, conf=document.getElementById('confirm-pw').value;
+    if (nw!==conf){errEl.textContent='Passwords do not match';errEl.classList.remove('hidden');return;}
+    if (nw.length<8){errEl.textContent='Min 8 characters';errEl.classList.remove('hidden');return;}
+    const btn=document.getElementById('pw-save-btn'); btn.disabled=true; btn.textContent='Updating...';
+    try { await api.put('/users/me/password',{currentPassword:curr,newPassword:nw}); showToast('Password updated','success'); document.getElementById('password-form').reset(); } catch(e){errEl.textContent=e.message;errEl.classList.remove('hidden');}
+    btn.disabled=false; btn.textContent='Update Password';
+  });
+
+  document.getElementById('id-scan-file').addEventListener('change', (e) => {
+    const f=e.target.files[0]; if(f){document.getElementById('id-preview').innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:6px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> '+f.name; document.getElementById('id-preview').classList.remove('hidden');}
+  });
+
+  document.getElementById('id-form').addEventListener('submit', async (e) => {
+    e.preventDefault(); const errEl=document.getElementById('id-error'); errEl.classList.add('hidden');
+    const file=document.getElementById('id-scan-file').files[0];
+    if (!file){errEl.textContent='Select a file'; errEl.classList.remove('hidden'); return;}
+    const btn=document.getElementById('id-submit-btn'); btn.disabled=true; btn.innerHTML='<div class="spinner spinner-sm"></div> Uploading...';
+    try { const fd=new FormData(); fd.append('idScan',file); await api.upload('/users/me/id-scan',fd); showToast('ID uploaded — pending review','success'); } catch(e){errEl.textContent=e.message;errEl.classList.remove('hidden');}
+    btn.disabled=false; btn.textContent='Upload ID';
+  });
+
+  document.getElementById('detect-location-btn').addEventListener('click', () => {
+    navigator.geolocation.getCurrentPosition((pos)=>{
+      document.getElementById('loc-lat').value=pos.coords.latitude;
+      document.getElementById('loc-lng').value=pos.coords.longitude;
+      document.getElementById('current-location-text').innerHTML=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:4px"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Detected: ${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)}`;
+      showToast('Location detected!','success');
+    },()=>showToast('Could not detect location','error'));
+  });
+
+  document.getElementById('save-location-btn').addEventListener('click', async () => {
+    const lat=document.getElementById('loc-lat').value, lng=document.getElementById('loc-lng').value;
+    const city=document.getElementById('loc-city').value, country=document.getElementById('loc-country').value;
+    try { const b={city,country}; if(lat&&lng){b.lat=lat;b.lng=lng;}
+      const r=await api.patch('/users/me',b); localStorage.setItem('kc_user',JSON.stringify(r.data)); showToast('Location updated','success');
+      if(city) document.getElementById('current-location-text').innerHTML=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:text-bottom;margin-right:4px"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> ${city}, ${country}`;
+    } catch(e){showToast(e.message,'error');}
+  });
+
+  document.getElementById('notif-save-btn').addEventListener('click', async () => {
+    try { const r=await api.patch('/users/me',{emailNotifications:document.getElementById('email-notif').checked,pushNotifications:document.getElementById('push-notif').checked}); localStorage.setItem('kc_user',JSON.stringify(r.data)); showToast('Preferences saved','success'); } catch(e){showToast(e.message,'error');}
+  });
+
+  document.getElementById('deactivate-btn').addEventListener('click', async () => {
+    if(!confirm('Deactivate account?')) return;
+    try { await api.delete('/users/me'); auth.logout(); showToast('Account deactivated. Goodbye!','info'); setTimeout(()=>window.location.href='/',1500); } catch(e){showToast(e.message,'error');}
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register — KindCycle</title>
+  <meta name="description" content="Join KindCycle — give or receive items in your community." />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+<div class="auth-page">
+  <div class="auth-side">
+    <div class="auth-side-content">
+      <a href="/" class="logo" style="margin-bottom:32px;display:flex;align-items:center;gap:10px;text-decoration:none">
+        <img src="/img/kindcycle.webp" alt="KindCycle" style="height:36px;width:auto;object-fit:contain">
+        <span style="font-family:var(--font-display);font-weight:800;font-size:1.8rem;color:white">KindCycle</span>
+      </a>
+      <h1 class="auth-title">Create account</h1>
+      <p class="auth-subtitle">Already have an account? <a href="/login.html">Sign in</a></p>
+
+      <form class="auth-form" id="register-form" novalidate enctype="multipart/form-data">
+        <!-- Role selection -->
+        <div class="form-group">
+          <label class="form-label">I want to <span>*</span></label>
+          <div class="role-selector">
+            <div class="role-option">
+              <input type="radio" name="role" id="role-giver" value="giver" />
+              <label class="role-card" for="role-giver">
+                <span class="role-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v10H4V12"></path><path d="M2 7h20v5H2z"></path><path d="M12 22V7"></path><path d="M12 7c0-2.5-2-4.5-4.5-4.5S3 4.5 3 7h9z"></path><path d="M12 7c0-2.5 2-4.5 4.5-4.5S21 4.5 21 7h-9z"></path></svg></span>
+                <span class="operator-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></span>
+                <span class="role-card-title">Give</span>
+                <span class="role-card-desc">Donate items to people in need</span>
+              </label>
+            </div>
+            <div class="role-option">
+              <input type="radio" name="role" id="role-receiver" value="receiver" checked />
+              <label class="role-card" for="role-receiver">
+                <span class="role-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22V15"></path><path d="M10 8c-2.333 0-5 1.5-5 5v5l7 2 7-2v-5c0-3.5-2.667-5-5-5"></path><path d="M10 8V5c0-1.657 1.343-3 3-3s3 1.343 3 3v3"></path></svg></span>
+                <span class="role-card-title">Receive</span>
+                <span class="role-card-desc">Request items from the community</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="name">Full Name <span>*</span></label>
+          <div class="input-group">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <input type="text" id="name" class="form-input" placeholder="Sophie Martin" autocomplete="name" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">Email address <span>*</span></label>
+          <div class="input-group">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <input type="email" id="email" class="form-input" placeholder="you@example.com" autocomplete="email" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="phone">Phone number</label>
+          <div class="input-group">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.07 3.5 2 2 0 0 1 3.03 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+            <input type="tel" id="phone" class="form-input" placeholder="+237 6XX XXX XXX" autocomplete="tel" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="password">Password <span>*</span></label>
+          <div class="input-group">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input type="password" id="password" class="form-input" placeholder="Min. 8 characters" autocomplete="new-password" required />
+            <button type="button" class="input-toggle" id="pw-toggle">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- ID Scan Upload -->
+        <div class="form-group">
+          <label class="form-label">ID Document (optional — required for full verification)</label>
+          <div class="upload-area" id="id-upload-area">
+            <input type="file" name="idScan" id="id-scan" accept="image/*,.pdf" />
+            <div class="upload-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 10h10M7 14h6"/></svg></div>
+            <div class="upload-text">
+              <strong>Click to upload</strong> or drag your ID here<br/>
+              <div style="font-size:2.5rem;margin-bottom:8px"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg></div>
+              <span style="font-size:.75rem;color:var(--color-text-muted)">JPEG, PNG, PDF — max 10MB. Encrypted & secure.</span>
+            </div>
+          </div>
+          <div id="file-preview" class="hidden" style="margin-top:8px;font-size:.875rem;color:var(--color-accent);display:flex;align-items:center;gap:6px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span id="file-name"></span>
+          </div>
+        </div>
+
+        <div id="register-error" class="form-error hidden"></div>
+        <button type="submit" class="btn btn-primary w-full btn-lg" id="register-btn">Create Account</button>
+        <div style="font-size:4rem;margin-bottom:16px;animation:blobFloat 3s ease-in-out infinite"><svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#02a95c" stroke-width="2"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="4" cy="20" r="1"></circle></svg></div>
+        <p style="font-size:.75rem;color:var(--color-text-muted);text-align:center">
+          By creating an account you agree to our <a href="#" style="color:var(--color-primary)">Terms of Service</a> and <a href="#" style="color:var(--color-primary)">Privacy Policy</a>.
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  if (auth.isLoggedIn()) { window.location.href = '/'; return; }
+
+  // Pre-select role from URL param
+  const params = new URLSearchParams(window.location.search);
+  const preRole = params.get('role');
+  if (preRole === 'giver') document.getElementById('role-giver').checked = true;
+
+  // File preview
+  document.getElementById('id-scan')?.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      document.getElementById('file-name').textContent = file.name;
+      document.getElementById('file-preview').classList.remove('hidden');
+    }
+  });
+
+  // Drag-drop
+  const uploadArea = document.getElementById('id-upload-area');
+  uploadArea?.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.classList.add('drag-over'); });
+  uploadArea?.addEventListener('dragleave', () => uploadArea.classList.remove('drag-over'));
+  uploadArea?.addEventListener('drop', (e) => { e.preventDefault(); uploadArea.classList.remove('drag-over'); });
+
+  // PW toggle
+  document.getElementById('pw-toggle')?.addEventListener('click', () => {
+    const pw = document.getElementById('password');
+    pw.type = pw.type === 'password' ? 'text' : 'password';
+  });
+
+  document.getElementById('register-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const errorEl = document.getElementById('register-error');
+    const btn = document.getElementById('register-btn');
+    errorEl.classList.add('hidden');
+
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const phone = document.getElementById('phone').value.trim();
+    const role = document.querySelector('input[name="role"]:checked').value;
+    const idScan = document.getElementById('id-scan').files[0];
+
+    if (!name || !email || !password) { errorEl.textContent = 'Name, email and password are required'; errorEl.classList.remove('hidden'); return; }
+    if (password.length < 8) { errorEl.textContent = 'Password must be at least 8 characters'; errorEl.classList.remove('hidden'); return; }
+
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner spinner-sm"></div> Creating account...';
+
+    try {
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('email', email);
+      formData.append('password', password);
+      formData.append('role', role);
+      if (phone) formData.append('phone', phone);
+      if (idScan) formData.append('idScan', idScan);
+
+      const res = await api.upload('/auth/register', formData);
+      auth.setSession(res.data);
+      showToast('Account created! Welcome to KindCycle', 'success');
+      setTimeout(() => {
+        window.location.href = getDashboardLink(res.data.user.role);
+      }, 1000);
+    } catch (err) {
+      errorEl.textContent = err.message;
+      errorEl.classList.remove('hidden');
+      btn.disabled = false;
+      btn.textContent = 'Create Account';
+    }
+  });
+});
+</script>
+</body>
+</html>

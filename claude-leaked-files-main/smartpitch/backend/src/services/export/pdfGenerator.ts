@@ -1,0 +1,198 @@
+import puppeteer from 'puppeteer';
+import fs from 'fs';
+import path from 'path';
+import { AppError } from '../../utils/AppError';
+import { IAnalysis } from '../../models/Analysis';
+
+export const generatePDF = async (analysis: IAnalysis, style: string, whiteLabel: boolean = false): Promise<string> => {
+  try {
+    const browser = await puppeteer.launch({
+      headless: true, // Puppeteer uses new headless mode by default in v22+
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
+    
+    const page = await browser.newPage();
+    
+    // Style configurations based on project type matching
+    const styles: Record<string, string> = {
+      corporate: `
+        :root { --p: #0f172a; --s: #f8fafc; --a: #2563eb; --g: linear-gradient(135deg, #2563eb, #1d4ed8); }
+        body { background: var(--s); color: var(--p); padding: 50px; font-family: 'Inter', sans-serif; }
+        h1, h2 { font-family: 'Outfit', sans-serif; color: var(--p); font-weight: 700; }
+        .slide { border-left: 5px solid var(--a); padding-left: 30px; margin-bottom: 40px; }
+      `,
+      startup: `
+        :root { --p: #1e1e24; --s: #ffffff; --a: #7c3aed; --g: linear-gradient(135deg, #7c3aed, #4f46e5); }
+        body { background: var(--s); color: var(--p); padding: 50px; font-family: 'Inter', sans-serif; }
+        h1, h2 { font-family: 'Outfit', sans-serif; color: var(--a); font-weight: 800; letter-spacing: -0.02em; }
+        .slide { 
+          background: rgba(255, 255, 255, 0.7);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(124, 58, 237, 0.1);
+          border-radius: 24px; 
+          padding: 40px; 
+          margin-bottom: 40px; 
+          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05); 
+        }
+      `,
+      technical: `
+        :root { --p: #f1f5f9; --s: #020617; --a: #06b6d4; --g: linear-gradient(135deg, #06b6d4, #0891b2); }
+        body { background: var(--s); color: var(--p); padding: 50px; font-family: 'Fira Code', monospace; }
+        h1, h2 { font-family: 'Outfit', sans-serif; color: var(--a); text-transform: uppercase; letter-spacing: 0.1em; }
+        .slide { border: 1px solid rgba(6, 182, 212, 0.2); border-radius: 12px; padding: 30px; margin-bottom: 40px; background: rgba(15, 23, 42, 0.5); }
+      `
+    };
+
+    const selectedStyle = styles[style] || styles.startup;
+
+    const parseContent = (text: string) => {
+      const cleanText = text.replace(/\*\*/g, '');
+      const lines = cleanText.split('\n');
+      let html = '';
+      let inList = false;
+
+      lines.forEach(line => {
+        const cleanLine = line.trim();
+        if (!cleanLine) return;
+
+        if (cleanLine.startsWith('-')) {
+          if (!inList) {
+            html += '<ul style="margin-top: 15px; margin-bottom: 25px; padding-left: 30px; list-style-type: square; color: var(--a);">';
+            inList = true;
+          }
+          html += `<li style="margin-bottom: 12px; color: var(--p); line-height: 1.5;"><span style="color: var(--p);">${cleanLine.replace(/^-+\s*/, '')}</span></li>`;
+        } else {
+          if (inList) {
+            html += '</ul>';
+            inList = false;
+          }
+          html += `<p style="margin-bottom: 20px;">${cleanLine}</p>`;
+        }
+      });
+
+      if (inList) html += '</ul>';
+      return html;
+    };
+
+    // Build HTML template
+    let htmlContent = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+      <style>
+        ${selectedStyle}
+        body { margin: 0; line-height: 1.6; }
+        .cover { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; page-break-after: always; }
+        .cover h1 { font-size: 4.5em; margin-bottom: 20px; line-height: 1.1; }
+        .cover p { font-size: 1.8em; opacity: 0.7; max-width: 800px; }
+        .slide { page-break-after: always; position: relative; }
+        .score-row { display: flex; gap: 20px; margin-top: 30px; flex-wrap: wrap; }
+        .score-card { 
+          flex: 1; 
+          min-width: 150px;
+          background: rgba(var(--a), 0.05); 
+          border: 1px solid rgba(var(--a), 0.1); 
+          padding: 20px; 
+          border-radius: 16px;
+          text-align: center;
+        }
+        .score-value { font-size: 2em; font-weight: 800; color: var(--a); font-family: 'Outfit', sans-serif; }
+        .score-label { font-size: 0.9em; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; margin-top: 5px; }
+        .header { position: absolute; top: -30px; right: 0; font-size: 0.8em; opacity: 0.4; }
+        .watermark { position: fixed; bottom: 20px; right: 20px; font-size: 0.8em; opacity: 0.3; font-family: 'Outfit', sans-serif; }
+      </style>
+    </head>
+    <body>
+      ${!whiteLabel ? '<div class="watermark">Generated by SmartPitch AI</div>' : ''}
+      <div class="cover">
+        <h1 style="background: var(--g); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${analysis.repoName}</h1>
+        <p>${analysis.repoDescription || 'AI-Generated Executive Pitch'}</p>
+        <div style="margin-top: 50px; font-weight: 500; font-family: 'Outfit', sans-serif; opacity: 0.5;">
+          ${new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+        </div>
+      </div>
+      
+      <div class="slide">
+        ${!whiteLabel ? '<div class="header">SmartPitch Premium Analysis</div>' : ''}
+        <h2>Executive Summary</h2>
+        <div style="font-size: 1.1em;">${parseContent(analysis.result.executiveSummary)}</div>
+        
+        <div class="score-row">
+          <div class="score-card">
+            <div class="score-value">${analysis.result.score.overall}/100</div>
+            <div class="score-label">Overall Score</div>
+          </div>
+          <div class="score-card">
+            <div class="score-value">${analysis.result.score.marketFit}</div>
+            <div class="score-label">Market Fit</div>
+          </div>
+          <div class="score-card">
+            <div class="score-value">${analysis.result.score.technical}</div>
+            <div class="score-label">Technical</div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Process slides
+    for (const slide of analysis.result.pitchSlides) {
+      htmlContent += `
+      <div class="slide">
+        ${!whiteLabel ? '<div class="header">SmartPitch AI Analysis</div>' : ''}
+        <h2>${slide.title}</h2>
+        <div style="font-size: 1.15em; font-weight: 400;">
+          ${parseContent(slide.content)}
+        </div>
+        ${slide.speakerNotes ? `<div style="font-size: 0.9em; color: #64748b; margin-top: 50px; background: #f8fafc; padding: 20px; border-radius: 12px; border-left: 4px solid var(--a);"><strong>Executive Speaker Notes:</strong><br/>${slide.speakerNotes}</div>` : ''}
+      </div>`;
+    }
+
+    // Add Red Team section if exists
+    if (analysis.mode === 'red_team' && analysis.result.investorChallenges?.length) {
+      htmlContent += `
+      <div class="slide">
+        <h2>Red Team: Hard Investor Questions</h2>
+        <ul>
+      `;
+      for (const challenge of analysis.result.investorChallenges) {
+        htmlContent += `
+          <li style="margin-bottom: 20px;">
+            <strong>Q (${challenge.difficulty}): ${challenge.question}</strong><br/>
+            <em>Suggested Defensibility:</em> ${challenge.suggestedAnswer}
+          </li>
+        `;
+      }
+      htmlContent += `</ul></div>`;
+    }
+
+    htmlContent += `
+    </body>
+    </html>`;
+
+    await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
+
+    // Output setup
+    const exportsDir = path.resolve(__dirname, '../../../exports');
+    if (!fs.existsSync(exportsDir)) {
+      fs.mkdirSync(exportsDir, { recursive: true });
+    }
+
+    const fileName = `pitch_${analysis._id}_${Date.now()}.pdf`;
+    const filePath = path.join(exportsDir, fileName);
+
+    await page.pdf({
+      path: filePath,
+      format: 'A4',
+      printBackground: true,
+      margin: { top: '20px', right: '20px', bottom: '20px', left: '20px' }
+    });
+
+    await browser.close();
+
+    return fileName;
+  } catch (error: any) {
+    throw new AppError('PDF Generation failed: ' + error.message, 500);
+  }
+};

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse Items — KindCycle</title>
+  <meta name="description" content="Browse donated items in your community. Filter by category, location radius, and condition." />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="/" class="logo">
+      <img src="/img/kindcycle.webp" alt="KindCycle" style="height:36px;width:auto;object-fit:contain">
+      <span class="logo-text">KindCycle</span>
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="/browse.html" class="nav-link active">Browse Items</a>
+      <a href="/#how-it-works" class="nav-link">How it Works</a>
+    </div>
+    <div class="nav-actions" id="nav-actions">
+      <a href="/login.html" class="btn btn-ghost" id="btn-login">Login</a>
+      <a href="/register.html" class="btn btn-primary" id="btn-register">Get Started</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="browse-page">
+  <!-- Browse Hero -->
+  <div class="browse-hero">
+    <div class="container">
+      <h1>Browse Items</h1>
+      <p style="color:var(--color-text-muted);margin-bottom:20px">Find items shared by your community</p>
+      <div class="search-bar">
+        <svg style="margin-left:16px;color:var(--color-text-muted)" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+        <input type="text" id="search-input" placeholder="Search items (e.g. jacket, toys, books)..." />
+        <button id="search-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="browse-layout">
+      <!-- Sidebar Filters -->
+      <aside class="browse-filters" id="browse-filters">
+        <div class="filter-card">
+          <div class="filter-title">Categories</div>
+          <div class="filter-list" id="category-filters">
+            <label class="filter-item">
+              <input type="radio" name="category" value="all" checked /> <span>All Categories</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="filter-card">
+          <div class="filter-title">Condition</div>
+          <div class="filter-list">
+            <label class="filter-item"><input type="checkbox" class="condition-filter" value="new" /><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> New</span></label>
+            <label class="filter-item"><input type="checkbox" class="condition-filter" value="like_new" /><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> Like New</span></label>
+            <label class="filter-item"><input type="checkbox" class="condition-filter" value="good" /><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg> Good</span></label>
+            <label class="filter-item"><input type="checkbox" class="condition-filter" value="fair" /><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94L14.7 6.3z"/></svg> Fair</span></label>
+            <label class="filter-item"><input type="checkbox" class="condition-filter" value="poor" /><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="M3.3 7l8.7 5 8.7-5"/><path d="M12 22V12"/></svg> Poor</span></label>
+          </div>
+        </div>
+
+        <div class="filter-card">
+          <div class="filter-section">
+          <div class="filter-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg> Delivery</div>
+          <label class="filter-option"><input type="radio" name="delivery" value="all" checked /> <span>All Methods</span></label>
+          <label class="filter-option"><input type="radio" name="delivery" value="pickup" /> <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg> Pickup</span></label>
+          <label class="filter-option"><input type="radio" name="delivery" value="delivery" /> <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3"></path><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5"></path><circle cx="7.5" cy="17.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg> Delivery</span></label>
+        </div>
+        </div>
+
+        <div class="filter-card">
+          <div class="filter-section">
+          <div class="filter-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Location</div>
+          <div id="location-status" style="font-size:.8rem;color:var(--color-text-muted);margin-bottom:12px">Detecting location...</div>
+          <div class="filter-title">Proximity <span class="range-value" id="radius-val">50 km</span></div>
+          <div style="padding:8px 0">
+            <input type="range" class="range-slider" id="radius-slider" min="5" max="200" value="50" step="5" />
+          </div>
+          <button class="btn btn-sm btn-outline w-full" id="use-location-btn">
+            Use my location
+          </button>
+        </div>
+        </div>
+
+        <div class="filter-card">
+          <div class="filter-title">Sort By</div>
+          <div class="filter-list">
+            <label class="filter-item"><input type="radio" name="sort" value="recent" checked /><span>Most Recent</span></label>
+            <label class="filter-item"><input type="radio" name="sort" value="popular" /><span>Most Viewed</span></label>
+            <label class="filter-item"><input type="radio" name="sort" value="nearest" id="sort-nearest" /><span>Nearest First</span></label>
+          </div>
+        </div>
+
+        <button class="btn btn-primary w-full" id="apply-filters-btn">Apply Filters</button>
+      </aside>
+
+      <!-- Results -->
+      <div class="browse-results">
+        <div class="results-bar">
+          <span class="results-count" id="results-count">Loading...</span>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn btn-sm btn-outline" id="mobile-filter-btn" style="display:none">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+              Filters
+            </button>
+          </div>
+        </div>
+
+        <!-- Category chips on mobile -->
+        <div class="categories-scroll" id="mobile-cats" style="margin-bottom:20px">
+          <div class="cat-chip active" data-cat="all">All</div>
+        </div>
+
+        <div class="items-grid" id="browse-grid">
+          <div class="item-skeleton"></div>
+          <div class="item-skeleton"></div>
+          <div class="item-skeleton"></div>
+          <div class="item-skeleton"></div>
+          <div class="item-skeleton"></div>
+          <div class="item-skeleton"></div>
+        </div>
+
+        <div class="load-more-container" id="load-more-container" style="display:none">
+          <button class="btn btn-outline btn-lg" id="load-more-btn">Load more items</button>
+        </div>
+
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/main.js"></script>
+<script>
+let userLat = null, userLng = null;
+let currentPage = 1;
+const pageSize = 12;
+
+document.addEventListener('DOMContentLoaded', async () => {
+  loadCategories();
+  loadItems();
+
+  // Radius slider
+  document.getElementById('radius-slider').addEventListener('input', (e) => {
+    document.getElementById('radius-val').textContent = e.target.value + ' km';
+  });
+
+  // Search
+  document.getElementById('search-btn').addEventListener('click', () => { currentPage = 1; loadItems(); });
+  document.getElementById('search-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') { currentPage = 1; loadItems(); } });
+
+  // Use location
+  document.getElementById('use-location-btn').addEventListener('click', () => {
+    const status = document.getElementById('location-status');
+    status.textContent = 'Getting location...';
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        userLat = pos.coords.latitude;
+        userLng = pos.coords.longitude;
+        status.textContent = '✅ Location active — showing nearby items';
+        status.style.color = 'var(--color-accent)';
+        document.getElementById('sort-nearest').checked = true;
+      },
+      () => { status.textContent = '❌ Could not get location.'; }
+    );
+  });
+
+  // Apply filters
+  document.getElementById('apply-filters-btn').addEventListener('click', () => { currentPage = 1; loadItems(); });
+});
+
+const CATEGORY_ICONS = {
+  'Clothing': `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg>`,
+  'Electronics': `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>`,
+  'Furniture': `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3"/><path d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H6v-2a2 2 0 0 0-4 0Z"/><path d="M4 18v2M20 18v2M12 4v9"/></svg>`,
+  'Books': `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
+  'Toys': `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16 3.95 6.06M14.31 16H2.83M16.62 12 10.88 21.94"/></svg>`,
+  'Sports': `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93 19.07 19.07"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>`,
+  'Kitchen': `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>`,
+  'Tools': `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.77 3.77z"/></svg>`,
+  'Health': `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>`,
+  'Baby': `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h.01M15 12h.01M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M12 2a7 7 0 0 1 7 7c0 5-3 9-7 11C8 18 5 14 5 9a7 7 0 0 1 7-7z"/></svg>`,
+  'Food': `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3v7"/></svg>`,
+  'Other': `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>`,
+};
+const getIconForCategory = (name) => CATEGORY_ICONS[name] || CATEGORY_ICONS['Other'];
+
+const loadCategories = async () => {
+  try {
+    const res = await api.get('/items/categories');
+    const filterList = document.getElementById('category-filters');
+    const mobileCats = document.getElementById('mobile-cats');
+
+    res.data.forEach(cat => {
+      // Sidebar
+      const label = document.createElement('label');
+      label.className = 'filter-item';
+      label.innerHTML = `<input type="radio" name="category" value="${cat.name}" /> <span>${getIconForCategory(cat.name)} ${cat.name} <span class="filter-count">${cat.count}</span></span>`;
+      filterList.appendChild(label);
+
+      // Mobile chip
+      const chip = document.createElement('div');
+      chip.className = 'cat-chip';
+      chip.dataset.cat = cat.name;
+      chip.textContent = cat.name;
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('#mobile-cats .cat-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        document.querySelector(`input[name="category"][value="${cat.name}"]`).checked = true;
+        currentPage = 1; loadItems();
+      });
+      mobileCats.appendChild(chip);
+    });
+
+    document.querySelectorAll('input[name="category"]').forEach(r => {
+      r.addEventListener('change', () => { currentPage = 1; loadItems(); });
+    });
+
+    document.getElementById('mobile-cats').querySelector('[data-cat="all"]').addEventListener('click', () => {
+      document.querySelectorAll('#mobile-cats .cat-chip').forEach(c => c.classList.remove('active'));
+      document.getElementById('mobile-cats').querySelector('[data-cat="all"]').classList.add('active');
+      document.querySelector('input[name="category"][value="all"]').checked = true;
+      currentPage = 1; loadItems();
+    });
+  } catch(e) { console.warn('Categories error:', e.message); }
+};
+
+const loadItems = async () => {
+  const grid = document.getElementById('browse-grid');
+  grid.innerHTML = Array(6).fill('<div class="item-skeleton" style="min-height:280px"></div>').join('');
+
+  const params = new URLSearchParams();
+  params.set('status', 'approved');
+  params.set('page', currentPage);
+  params.set('limit', pageSize);
+
+  const category = document.querySelector('input[name="category"]:checked')?.value;
+  if (category && category !== 'all') params.set('category', category);
+
+  const search = document.getElementById('search-input').value.trim();
+  if (search) params.set('search', search);
+
+  const sort = document.querySelector('input[name="sort"]:checked')?.value;
+  if (sort === 'popular') params.set('sort', 'popular');
+
+  const radius = document.getElementById('radius-slider').value;
+  if (userLat && userLng) {
+    params.set('lat', userLat);
+    params.set('lng', userLng);
+    params.set('radius', radius);
+  }
+
+  try {
+    const res = await api.get(`/items?${params}`);
+    const { items, total, pages } = res.data;
+    const countEl = document.getElementById('results-count');
+    countEl.textContent = `${total} item${total !== 1 ? 's' : ''} found`;
+
+    if (items.length === 0) {
+      grid.innerHTML = `<div style="grid-column:1/-1" class="empty-state">
+        <div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3H10l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg></div>
+        <div class="empty-title">No items found</div>
+        <div class="empty-desc">Try adjusting your filters or expanding the search radius.</div>
+        <a href="/register.html?role=giver" class="btn btn-primary">Be the first to donate</a>
+      </div>`;
+      return;
+    }
+
+    grid.innerHTML = items.map(renderItemCard).join('');
+    renderPagination(currentPage, pages);
+  } catch(e) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--color-text-muted)">
+      <p>⚠️ Could not load items. Ensure the API server is running on port 5000.</p>
+    </div>`;
+  }
+};
+
+const renderPagination = (current, total) => {
+  const el = document.getElementById('pagination');
+  if (total <= 1) { el.innerHTML = ''; return; }
+  let html = '';
+  if (current > 1) html += `<button class="page-btn" onclick="goToPage(${current-1})">←</button>`;
+  for (let i = Math.max(1, current-2); i <= Math.min(total, current+2); i++) {
+    html += `<button class="page-btn ${i===current?'active':''}" onclick="goToPage(${i})">${i}</button>`;
+  }
+  if (current < total) html += `<button class="page-btn" onclick="goToPage(${current+1})">→</button>`;
+  el.innerHTML = html;
+};
+window.goToPage = (p) => { currentPage = p; loadItems(); window.scrollTo({top:0, behavior:'smooth'}); };
+</script>
+</body>
+</html>

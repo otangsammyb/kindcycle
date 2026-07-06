@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Donation Payment — KindCycle</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/main.css"/>
+</head>
+<body>
+<nav class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="/" class="logo"><img src="/img/kindcycle.webp" alt="KindCycle" style="height:36px;width:auto;object-fit:contain"><span class="logo-text">KindCycle</span></a>
+    <div class="nav-actions" id="nav-actions"></div>
+  </div>
+</nav>
+
+<div class="payment-page">
+  <div class="container" style="max-width:520px">
+    <div id="payment-step-pay">
+      <div class="payment-card">
+        <div class="payment-header">
+          <div style="font-size:2.5rem;margin-bottom:8px">💳</div>
+          <h2>Support KindCycle</h2>
+          <p style="color:var(--color-text-muted);font-size:.9rem">Optional donations help us cover delivery logistics and platform costs.</p>
+        </div>
+
+        <!-- Amount bubbles -->
+        <div style="display:flex;gap:10px;justify-content:center;margin-bottom:20px;flex-wrap:wrap">
+          <button class="amount-btn btn btn-outline" data-amount="500">500 XAF</button>
+          <button class="amount-btn btn btn-outline" data-amount="1000">1,000 XAF</button>
+          <button class="amount-btn btn btn-outline" data-amount="2000">2,000 XAF</button>
+          <button class="amount-btn btn btn-outline" data-amount="5000">5,000 XAF</button>
+        </div>
+        <div class="form-group" style="margin-bottom:20px">
+          <label class="form-label">Or enter custom amount (XAF)</label>
+          <input type="number" class="form-input" id="amount-input" placeholder="e.g. 1500" min="100"/>
+        </div>
+
+        <div style="font-weight:700;margin-bottom:12px;font-size:.875rem;color:var(--color-text-muted)">SELECT PAYMENT METHOD</div>
+        <div class="operator-select">
+          <div class="operator-option">
+            <input type="radio" name="operator" id="op-mtn" value="MTN"/>
+            <label class="operator-card" for="op-mtn">
+              <span class="operator-logo">🟡</span>
+              <span class="operator-name">MTN MoMo</span>
+            </label>
+          </div>
+          <div class="operator-option">
+            <input type="radio" name="operator" id="op-orange" value="ORANGE"/>
+            <label class="operator-card" for="op-orange">
+              <span class="operator-logo">🟠</span>
+              <span class="operator-name">Orange Money</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top:16px">
+          <label class="form-label">Mobile Phone Number <span>*</span></label>
+          <div class="input-group">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.07 3.5 2 2 0 0 1 3.03 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+            <input type="tel" class="form-input" id="phone-input" placeholder="+237 6XX XXX XXX"/>
+          </div>
+        </div>
+
+        <div id="payment-error" class="form-error hidden" style="margin:12px 0"></div>
+
+        <button class="btn btn-primary w-full btn-lg" id="pay-btn" style="margin-top:20px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Pay Now
+        </button>
+
+        <div class="payment-secure">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Secured by Campay · MTN & Orange Money
+        </div>
+      </div>
+    </div>
+
+    <!-- Pending step -->
+    <div id="payment-step-pending" class="hidden">
+      <div class="payment-card" style="text-align:center;padding:48px">
+        <div style="font-size:3rem;margin-bottom:16px;animation:pulse 1.5s infinite">📲</div>
+        <h2 style="margin-bottom:12px">Check your phone</h2>
+        <p style="color:var(--color-text-muted);margin-bottom:24px">A payment prompt has been sent to <strong id="pending-phone"></strong>. Enter your PIN to confirm.</p>
+        <div class="spinner" style="margin:0 auto 24px"></div>
+        <p style="font-size:.8rem;color:var(--color-text-muted)">This page will update automatically once confirmed.</p>
+      </div>
+    </div>
+
+    <!-- Success step -->
+    <div id="payment-step-success" class="hidden">
+      <div class="payment-card" style="text-align:center;padding:48px">
+        <div style="font-size:4rem;margin-bottom:16px;animation:blobFloat 3s ease-in-out infinite">🎉</div>
+        <h2 style="margin-bottom:8px;color:var(--color-accent)">Thank you!</h2>
+        <p style="color:var(--color-text-muted);margin-bottom:24px">Your donation has been received. You're helping keep KindCycle running for the whole community.</p>
+        <div style="background:var(--color-secondary);border-radius:var(--radius-lg);padding:20px;margin-bottom:28px">
+          <div style="font-family:var(--font-display);font-size:2rem;font-weight:800;color:var(--color-accent-dark)" id="success-amount">0 XAF</div>
+          <div style="font-size:.85rem;color:var(--color-accent-dark);font-weight:600">Donated successfully</div>
+        </div>
+        <a href="/" class="btn btn-primary w-full">Return home</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/main.js"></script>
+<script>
+let selectedAmount = 0;
+let pollingInterval = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Amount buttons
+  document.querySelectorAll('.amount-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.amount-btn').forEach(b=>b.classList.remove('btn-primary','btn-outline'));
+      btn.classList.add('btn-primary');
+      btn.classList.remove('btn-outline');
+      selectedAmount = parseInt(btn.dataset.amount);
+      document.getElementById('amount-input').value = selectedAmount;
+    });
+  });
+
+  document.getElementById('amount-input').addEventListener('input', (e) => {
+    document.querySelectorAll('.amount-btn').forEach(b=>{ b.classList.remove('btn-primary'); b.classList.add('btn-outline'); });
+    selectedAmount = parseInt(e.target.value)||0;
+  });
+
+  // Pay
+  document.getElementById('pay-btn').addEventListener('click', async () => {
+    const errEl = document.getElementById('payment-error');
+    errEl.classList.add('hidden');
+    const amount = parseInt(document.getElementById('amount-input').value)||selectedAmount;
+    const phone = document.getElementById('phone-input').value.trim();
+    const operator = document.querySelector('input[name="operator"]:checked')?.value;
+
+    if (!amount || amount < 100) { errEl.textContent = 'Please enter a valid amount (min 100 XAF)'; errEl.classList.remove('hidden'); return; }
+    if (!phone) { errEl.textContent = 'Please enter a phone number'; errEl.classList.remove('hidden'); return; }
+    if (!operator) { errEl.textContent = 'Please select a payment method'; errEl.classList.remove('hidden'); return; }
+
+    const btn = document.getElementById('pay-btn');
+    btn.disabled = true; btn.innerHTML = '<div class="spinner spinner-sm"></div> Initiating payment...';
+    try {
+      const res = await api.post('/payments/collect', { amount, phone, operator, description: 'KindCycle platform support' });
+      const { reference } = res.data;
+      document.getElementById('pending-phone').textContent = phone;
+      document.getElementById('payment-step-pay').classList.add('hidden');
+      document.getElementById('payment-step-pending').classList.remove('hidden');
+      // Poll for status
+      pollingInterval = setInterval(async () => {
+        try {
+          const sr = await api.get(`/payments/status/${reference}`);
+          if (sr.data.status === 'SUCCESSFUL') {
+            clearInterval(pollingInterval);
+            document.getElementById('payment-step-pending').classList.add('hidden');
+            document.getElementById('payment-step-success').classList.remove('hidden');
+            document.getElementById('success-amount').textContent = `${amount.toLocaleString()} XAF`;
+          } else if (sr.data.status === 'FAILED') {
+            clearInterval(pollingInterval);
+            document.getElementById('payment-step-pending').classList.add('hidden');
+            document.getElementById('payment-step-pay').classList.remove('hidden');
+            errEl.textContent = 'Payment failed or was cancelled. Please try again.';
+            errEl.classList.remove('hidden');
+            btn.disabled = false; btn.textContent = 'Pay Now';
+          }
+        } catch(e) { /* keep polling */ }
+      }, 4000);
+    } catch(e) {
+      errEl.textContent = e.message;
+      errEl.classList.remove('hidden');
+      btn.disabled = false; btn.textContent = 'Pay Now';
+    }
+  });
+});
+</script>
+</body>
+</html>

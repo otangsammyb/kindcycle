@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KindCycle — Give. Receive. Repeat.</title>
+  <meta name="description" content="KindCycle is a peer-to-peer charity platform that connects givers and receivers for direct item exchange with trust and community." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="icon" type="image/webp" href="/img/kindcycle.webp" />
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="/" class="logo">
+        <img src="/img/kindcycle.webp" alt="KindCycle" style="height:36px;width:auto;object-fit:contain">
+        <span class="logo-text">KindCycle</span>
+      </a>
+        <div class="nav-links" id="nav-links">
+          <a href="/browse.html" class="nav-link">Browse Items</a>
+          <a href="/fundraisers.html" class="nav-link">Fundraisers</a>
+          <a href="/ledger.html" class="nav-link">Public Ledger</a>
+          <a href="/#how-it-works" class="nav-link">How it Works</a>
+          <a href="/#impact" class="nav-link">Impact</a>
+        </div>
+
+        <div class="nav-actions" id="nav-actions">
+          <a href="/login.html" class="btn btn-ghost" id="btn-login">Login</a>
+          <a href="/register.html" class="btn btn-primary" id="btn-register">Get Started</a>
+          <!-- Populated by JS when logged in -->
+        </div>
+
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+      </div>
+      <div class="container hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          Community-powered giving
+        </div>
+        <h1 class="hero-title">Giving made <br/><span class="text-accent">simple & direct.</span></h1>
+        <p class="hero-subtitle">KindCycle connects people who have items to give with those who need them. Trust, transparency, and community in every exchange.</p>
+        <div class="hero-cta">
+          <a href="/register.html?role=giver" class="btn btn-primary btn-lg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14m-7-7l7 7 7-7"/></svg>
+            Start Giving
+          </a>
+          <a href="/browse.html" class="btn btn-secondary btn-lg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            Browse Items
+          </a>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#fee2e2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#87290f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"></path><path d="M2 7h20v5H2z"></path><path d="M12 22V7"></path><path d="M12 7c0-2.5-2-4.5-4.5-4.5S3 4.5 3 7h9z"></path><path d="M12 7c0-2.5 2-4.5 4.5-4.5S21 4.5 21 7h-9z"></path></svg></div>
+          <div class="stat-value counter" data-target="1500">0</div>
+          <div class="stat-label">Items Shared</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#d1fae5"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#02a95c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+          <div class="stat-value counter" data-target="850">0</div>
+          <div class="stat-label">Neighborhoods</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#e0e7ff"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div>
+          <div class="stat-value counter" data-target="3200">0</div>
+          <div class="stat-label">Grateful Receivers</div>
+        </div>
+      </div>
+      <div class="hero-scroll-indicator">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14m-7-7l7 7 7-7"/></svg>
+      </div>
+    </section>
+
+    <!-- Category Carousel -->
+    <section class="categories-strip" id="categories-strip">
+      <div class="container">
+        <div class="categories-scroll" id="categories-scroll">
+          <!-- Populated by JS -->
+          <div class="cat-chip active" data-cat="all">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            All Items
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Items -->
+    <section class="featured-items" id="featured-items">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Available Near You</h2>
+          <a href="/browse.html" class="section-link">View all
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div class="items-grid" id="items-grid">
+          <!-- Populated by JS -->
+          <div class="item-skeleton"></div>
+          <div class="item-skeleton"></div>
+          <div class="item-skeleton"></div>
+          <div class="item-skeleton"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Community Fundraisers -->
+    <section class="home-fundraisers" id="home-fundraisers">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-label">Community Support</span>
+            <h2 class="section-title">Active Fundraisers</h2>
+          </div>
+          <a href="/fundraisers.html" class="section-link">See all
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div class="fundraiser-home-grid" id="fundraiser-home-grid">
+          <div class="item-skeleton"></div>
+          <div class="item-skeleton"></div>
+          <div class="item-skeleton"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+      <div class="container">
+        <div class="section-header center">
+          <span class="section-label">Simple & Transparent</span>
+          <h2 class="section-title">How KindCycle Works</h2>
+        </div>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-icon" style="background: var(--color-secondary)">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#87290f" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="step-number">01</div>
+            <h3>Create an Account</h3>
+            <p>Sign up as a Giver or Receiver. Verify your identity for trust and safety.</p>
+          </div>
+          <div class="step-connector"></div>
+          <div class="step-card">
+            <div class="step-icon" style="background: #e8f5e1">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#02a95c" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <div class="step-number">02</div>
+            <h3>Post or Browse</h3>
+            <p>Givers list items. Receivers browse by category or location proximity.</p>
+          </div>
+          <div class="step-connector"></div>
+          <div class="step-card">
+            <div class="step-icon" style="background: #fef3e2">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#e07b39" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.07 3.5 2 2 0 0 1 3.03 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21 16z"/></svg>
+            </div>
+            <div class="step-number">03</div>
+            <h3>Request & Connect</h3>
+            <p>Receivers submit a request with justification. Givers choose recipients.</p>
+          </div>
+          <div class="step-connector"></div>
+          <div class="step-card">
+            <div class="step-icon" style="background: #e8f4fd">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0077b6" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="step-number">04</div>
+            <h3>Exchange & Review</h3>
+            <p>Meet up or arrange delivery. Leave reviews to build community trust.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="impact-section" id="impact">
+      <div class="container">
+        <div class="impact-grid">
+          <div class="impact-text">
+            <span class="section-label">Real Impact</span>
+            <h2 class="section-title">Every item tells<br/>a story of kindness</h2>
+            <p>KindCycle isn't just about things. It's about the moment a warm jacket reaches someone cold, a textbook reaches a student who can't afford one, or a meal reaches a family that needed it.</p>
+            <div class="impact-metrics">
+              <div class="metric">
+                <span class="metric-val">98%</span>
+                <span class="metric-label">Satisfaction rate</span>
+              </div>
+              <div class="metric">
+                <span class="metric-val">3.2kg</span>
+                <span class="metric-label">Avg CO₂ saved per item</span>
+              </div>
+              <div class="metric">
+                <span class="metric-val">&lt;48h</span>
+                <span class="metric-label">Avg exchange time</span>
+              </div>
+            </div>
+            <a href="/register.html" class="btn btn-primary">Join the movement</a>
+          </div>
+          <div class="impact-visual">
+            <div class="impact-card-stack">
+              <div class="impact-card card-1">
+                <div class="impact-card-avatar" style="background: #c3f0b9"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#02a95c" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg></div>
+                <div>
+                  <div class="impact-card-name">Sophie</div>
+                  <div class="impact-card-action">Donated 3 items this month</div>
+                </div>
+                <span class="emoji-badge"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e07b39" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+              </div>
+              <div class="impact-card card-2">
+                <div class="impact-card-avatar" style="background: #87290f; color: white"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                <div>
+                  <div class="impact-card-name">Marie</div>
+                  <div class="impact-card-action">Received winter clothes for her kids</div>
+                </div>
+                <span class="emoji-badge"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#87290f" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
+              </div>
+              <div class="impact-card card-3">
+                <div class="impact-card-avatar" style="background: #02a95c; color: white"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                <div>
+                  <div class="impact-card-name">Jean-Pierre</div>
+                  <div class="impact-card-action">Trusted Giver — 12 reviews</div>
+                </div>
+                <span class="emoji-badge"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#02a95c" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Advanced Features Teaser -->
+    <section class="advanced-features">
+      <div class="container">
+        <div class="section-header center">
+          <span class="section-label">What's Coming</span>
+          <h2 class="section-title">Built for the Future</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
+            <h3>AI Need Detection</h3>
+            <p>Smart matching based on community data, location, and need patterns to connect the right items with the right people.</p>
+            <span class="coming-badge">Coming Soon</span>
+          </div>
+          <div class="feature-card featured">
+            <div class="feature-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 2h3a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h3"/><path d="M12 12h.01"/><path d="M12 16h.01"/><path d="M12 8h.01"/><path d="M8 12h.01"/><path d="M8 16h.01"/><path d="M8 8h.01"/><path d="M16 12h.01"/><path d="M16 16h.01"/><path d="M16 8h.01"/></svg></div>
+            <h3>Blockchain Logging</h3>
+            <p>Every transaction permanently and transparently recorded on-chain for full accountability and trust.</p>
+            <span class="coming-badge">Beta</span>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05"/><path d="M12 22.08V12"/></svg></div>
+            <h3>AR Impact View</h3>
+            <p>See the real-world impact of donations visualized through augmented reality in your community.</p>
+            <span class="coming-badge">Coming Soon</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="cta-banner">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Ready to make a difference?</h2>
+          <p>Join thousands of givers and receivers building a kinder community.</p>
+          <div class="cta-btns">
+            <a href="/register.html?role=giver" class="btn btn-white">I want to give →</a>
+            <a href="/register.html?role=receiver" class="btn btn-outline-white">I need something →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="logo"><img src="/img/kindcycle.webp" alt="KindCycle" style="height:36px;width:auto;object-fit:contain"><span class="logo-text">KindCycle</span></a>
+          <p class="footer-tagline">Give. Receive. Repeat.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Platform</h4>
+            <a href="/browse.html">Browse Items</a>
+            <a href="/fundraisers.html">Fundraisers</a>
+            <a href="/register.html">Register</a>
+            <a href="/login.html">Login</a>
+          </div>
+          <div class="footer-col">
+            <h4>Community</h4>
+            <a href="/#how-it-works">How it Works</a>
+            <a href="/#impact">Impact</a>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <a href="mailto:hello@kindcycle.org">hello@kindcycle.org</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
+          <span>© 2026 KindCycle. All rights reserved.</span>
+          <span>Made with ❤️ for communities</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
